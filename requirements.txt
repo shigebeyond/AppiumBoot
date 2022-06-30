@@ -1,0 +1,6 @@
+PyYAML == 6.0
+selenium == 4.1.5
+selenium-requests == 1.4.1
+jsonpath == 0.82
+lxml == 4.3.2
+Appium-Python-Client == 2.3.0

@@ -1,0 +1,52 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from requests import Response
+from selenium import webdriver
+import util
+import response_wrapper
+from util import set_var,get_var
+import json # eval 可能会用到
+import re
+
+# 抽取器
+class Extractor(response_wrapper.ResponseWrap):
+
+    def __init__(self, driver: webdriver.Chrome, res: Response = None):
+        super(Extractor, self).__init__(driver, res)
+
+    # 抽取参数
+    def run(self, config):
+        if self.res != None and 'extract_by_jsonpath' in config:
+            return self.run_type('jsonpath', config['extract_by_jsonpath'])
+
+        if 'extract_by_xpath' in config:
+            return self.run_type('xpath', config['extract_by_xpath'])
+
+        if self.res != None and 'validate_by_css' in config:
+            return self.run_type('css', config['validate_by_css'])
+
+        if 'extract_by_class' in config:
+            return self.run_type('class', config['extract_by_class'])
+
+        if 'extract_by_eval' in config:
+            return self.run_eval(config['extract_by_eval'])
+
+    # 执行单个类型的抽取
+    def run_type(self, type, fields):
+        for var, path in fields.items():
+            # 获得字段值
+            val = self._get_val_by(type, path)
+            # 抽取单个字段
+            set_var(var, val)
+            print(f"从响应中抽取参数: {var}={val}")
+
+    # 执行eval类型的抽取
+    def run_eval(self, fields):
+        for var, expr in fields.items():
+            # 获得字段值
+            val = eval(expr, globals(), util.vars) # 丢失本地与全局变量, 如引用不了json模块
+            # 抽取单个字段
+            set_var(var, val)
+            print(f"抽取参数: {var}={val}")
+
