@@ -1,0 +1,17 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: io.material.catalog
+      appActivity: io.material.catalog.main.MainActivity
+      automationName: UiAutomator2
+- include: part-comp1.yml
+- include: part-comp2.yml
+- include: part-comp3.yml
+- include: part-comp4.yml
+- include: part-comp5.yml
+
+- sleep: 20

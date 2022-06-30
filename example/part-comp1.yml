@@ -1,0 +1,28 @@
+# ----- 首页(组件列表), 点击第1个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+  # 第二页(组件demo列表), 点击第一个demo
+- click_by:
+    id: io.material.catalog:id/cat_demo_landing_row_root
+- # 第三页(组件demo详情)
+  swipe_up: # 上拉
+  sleep: 1
+- swipe_down: # 下拉
+  sleep: 1
+- click_by: # 点击排最后按钮
+    id: io.material.catalog:id/end
+  sleep: 2
+- click_by: # 点击居中按钮
+    id: io.material.catalog:id/center
+  sleep: 2
+- click_by: # 点击切换可视按钮
+    id: io.material.catalog:id/attach_toggle
+  sleep: 2
+- click_by: # 点击居中按钮
+    id: io.material.catalog:id/center
+  sleep: 2
+  # 退回到首页
+  back:
+- sleep: 1
+  back:

@@ -1,0 +1,35 @@
+# ----- 首页(组件列表), 点击第4个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第一个demo
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout
+# 第三页(组件demo详情)
+- click_by: # 弹出切换皮肤
+    aid: Theme Switcher
+  sleep: 1
+- click_by: # 选择皮肤
+    xpath: (//android.widget.RadioButton[@content-desc="Yellow"])[1]
+  sleep: 1
+- click_by: # 应用皮肤
+    id: io.material.catalog:id/apply_button
+- click_by: # 单击按钮
+    id: io.material.catalog:id/material_button
+  sleep: 1
+# 返回上一页即第二页(组件demo列表), 点击第2个demo
+- back:
+  sleep: 1
+  click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButtonToggleGroup[1]/com.google.android.material.button.MaterialButton[1]
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButtonToggleGroup[2]/com.google.android.material.button.MaterialButton[1]
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButtonToggleGroup[3]/com.google.android.material.button.MaterialButton[1]
+- # 退回到首页
+  sleep: 1
+  back:
+- sleep: 1
+  back:

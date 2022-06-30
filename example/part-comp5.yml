@@ -1,0 +1,9 @@
+# ----- 首页(组件列表), 点击第5个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[5]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第3个demo
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[2]
+# 第三页(组件demo详情)
+  move_track: ['365,1148', '802,729', '222,1529']

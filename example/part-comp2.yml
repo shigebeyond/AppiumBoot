@@ -1,0 +1,47 @@
+# ----- 首页(组件列表), 点击第2个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+  # 第二页(组件demo列表), 点击第一个demo
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout
+# 第三页(组件demo详情)
+- click_by: # 切换页签
+    aid: Page 2
+- click_by: # 弹出切换皮肤
+    aid: Theme Switcher
+  sleep: 1
+- click_by: # 选择皮肤
+    xpath: (//android.widget.RadioButton[@content-desc="Green"])[1]
+  sleep: 1
+- click_by: # 应用皮肤
+    id: io.material.catalog:id/apply_button
+  sleep: 1
+- click_by: # 添加页签
+    id: io.material.catalog:id/add_button
+  sleep: 1
+- click_by: # 删除页签
+    id: io.material.catalog:id/remove_button
+  sleep: 2
+# 返回上一页即第二页(组件demo列表), 点击第4个demo
+- back:
+  sleep: 1
+  click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[3]
+- sleep: 1
+  click_by: # 切换页签
+    aid: Alarm
+- sleep: 1
+  click_by: # 切换页签
+    aid: 'Clock'
+- sleep: 1
+  click_by: # 切换页签
+    aid: Timer
+- sleep: 1
+  click_by: # 切换页签
+    aid: Stopwatch
+  # 退回到首页
+- sleep: 1
+  back:
+- sleep: 1
+  back:
