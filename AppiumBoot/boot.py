@@ -16,6 +16,7 @@ from helpers import *
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.actions.mouse_button import MouseButton
 from selenium.webdriver.common.action_chains import ActionChains
 
 from appium import webdriver
@@ -66,6 +67,9 @@ class Boot(object):
             'move_track': self.move_track,
             'drag_and_drop_by': self.drag_and_drop_by,
             'scroll_by': self.scroll_by,
+            'move_by': self.move_by,
+            'zoom_in': self.zoom_in,
+            'zoom_out': self.zoom_out,
             'tap': self.tap,
             'tap_by': self.tap_by,
             'long_press': self.long_press,
@@ -487,6 +491,8 @@ class Boot(object):
         for type in types:
             if type in config:
                 path = config[type]
+                if type == 'xpath': # xpath支持变量
+                    path = replace_var(path)
                 return self.driver.find_element(self.type2by(type), path)
         raise Exception(f"没有查找类型: {config}")
 
@@ -520,12 +526,23 @@ class Boot(object):
         self.driver.swipe(x1, y1, x2, y2, duration)
 
     # 上滑
-    def swipe_up(self, _):
-        self.swipe_vertical('0.75,0.25')
+    # :param 移动幅度比例
+    def swipe_up(self, move_ratio):
+        if move_ratio == None:
+            move_ratio = 0.5
+        end = (1 - move_ratio) / 2
+        start = 1 - end
+        # self.swipe_vertical(f'0.75,0.25')
+        self.swipe_vertical(f'{start},{end}')
 
     # 下滑
-    def swipe_down(self, _):
-        self.swipe_vertical('0.25,0.75')
+    def swipe_down(self, move_ratio):
+        if move_ratio == None:
+            move_ratio = 0.5
+        start = (1 - move_ratio) / 2
+        end = 1 - start
+        # self.swipe_vertical('0.25,0.75')
+        self.swipe_vertical(f'{start},{end}')
 
     # 左滑
     def swipe_left(self, _):
@@ -539,8 +556,9 @@ class Boot(object):
     # :param y_range_ratios y轴起始位置在屏幕的比例，如 0.2,0.7，即从屏幕0.2比例处滑到0.7比例处
     def swipe_vertical(self, y_range_ratios):
         # 获取屏幕的宽高
-        w = self.driver.get_window_size()["width"]
-        h = self.driver.get_window_size()["height"]
+        size = self.driver.get_window_size()
+        w = size["width"]
+        h = size["height"]
         # x不变：水平居中
         xm = int(w * 0.5)
         # y:按比例计算坐标
@@ -554,8 +572,9 @@ class Boot(object):
     # :param x_range_ratios x轴起始位置在屏幕的比例，如 0.2,0.7，即从屏幕0.2比例处滑到0.7比例处
     def swipe_horizontal(self, x_range_ratios):
         # 获取屏幕的宽高
-        w = self.driver.get_window_size()["width"]
-        h = self.driver.get_window_size()["height"]
+        size = self.driver.get_window_size()
+        w = size["width"]
+        h = size["height"]
         # y不变：水平居中
         ym = int(h * 0.5)
         # x:按比例计算坐标
@@ -568,6 +587,7 @@ class Boot(object):
     # 移动轨迹(传坐标数组)
     # :param pos_list
     def move_track(self, pos_list):
+        '''TouchAction已失效, 没有产生动作: 报错[Deprecated] 'TouchAction' action is deprecated. Please use W3C actions instead.
         # TouchAction(self.driver).press(None, x1, y1).move_to(None, x2, y2).release().perform()
         action = TouchAction(self.driver)
         for i in range(0, len(pos_list)):
@@ -577,6 +597,20 @@ class Boot(object):
             else:
                 action.move_to(None, x, y)
         action.release().perform()
+        '''
+        actions = ActionChains(self.driver)
+        actions.w3c_actions.devices = []
+        finger = actions.w3c_actions.add_pointer_input('touch', 'finger')
+        for i in range(0, len(pos_list)):
+            x, y = pos_list[i].split(",", 1)  # 坐标
+            # 手指移动
+            finger.create_pointer_move(x=x, y=y)
+            if i == 0: # 开始:手指按下去
+                finger.create_pointer_down(button=MouseButton.LEFT)
+
+        # 最后:手指松开
+        finger.create_pointer_up(MouseButton.LEFT)
+        actions.perform()
 
     # 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
     # :param config {from, to}
@@ -586,7 +620,7 @@ class Boot(object):
         to = self._find_by(by, config['to']) # 结束元素
         self.driver.drag_and_drop(_from, to)
 
-    # 滑动(传元素): 从一个元素滑动到另一元素，直到页面自动停止
+    # 滑动(传元素): 从一个元素滑动到另一元素，直到页面自动停止(有惯性)
     # :param config {from, to, duration}
     def scroll_by(self, config):
         by = config['by']
@@ -596,6 +630,72 @@ class Boot(object):
         if 'duration' in config:
             duration = int(config['duration'])
         self.driver.scroll(_from, to, duration)
+
+    # 滑动(传元素): 从一个元素滑动到另一元素，无惯性
+    # :param config {from, to, duration}
+    def move_by(self, config):
+        by = config['by']
+        _from = self._find_by(by, config['from']).location # 起始元素的位置
+        to = self._find_by(by, config['to']).location # 结束元素的位置
+        duration = None
+        if 'duration' in config:
+            duration = int(config['duration'])
+        # print(_from)
+        # print(to)
+
+        actions = ActionChains(self.driver)
+        actions.w3c_actions.devices = []
+        finger = actions.w3c_actions.add_pointer_input('touch', 'finger')
+        # 手指移动到开头
+        finger.create_pointer_move(x=_from['x'], y=_from['y'])
+        # 开始:手指按下去
+        finger.create_pointer_down(button=MouseButton.LEFT)
+        # 手指移动到结尾
+        finger.create_pointer_move(x=to['x'], y=to['y'])
+        # 最后:手指松开
+        finger.create_pointer_up(MouseButton.LEFT)
+        actions.perform()
+
+    # 放大
+    def zoom_in(self, _):
+        self.do_zoom(True)
+
+    # 缩小
+    def zoom_out(self, _):
+        self.do_zoom(False)
+
+    # 真正的缩放
+    def do_zoom(self, is_up):
+        actions = ActionChains(self.driver)
+        actions.w3c_actions.devices = []
+        finger1 = actions.w3c_actions.add_pointer_input('touch', 'finger1')
+        finger2 = actions.w3c_actions.add_pointer_input('touch', 'finger2')
+        size = self.driver.get_window_size()
+        width = size['width']
+        height = size['height']
+        # 两个手指移动到开始
+        xm = width * 0.5
+        start1, start2, end1, end2 = self.get_zoom_y_range_ratios(is_up)
+        finger1.create_pointer_move(x=xm, y=height * start1)
+        finger2.create_pointer_move(x=xm, y=height * start2)
+        # 两个手指按下去
+        finger1.create_pointer_down(button=MouseButton.LEFT)
+        finger2.create_pointer_down(button=MouseButton.LEFT)
+        # 两个手指移动到结尾
+        finger1.create_pointer_move(x=xm, y=height * end1)
+        finger2.create_pointer_move(x=xm, y=height * end2)
+        # 两个手指松开
+        finger1.create_pointer_up(MouseButton.LEFT)
+        finger2.create_pointer_up(MouseButton.LEFT)
+        actions.perform()
+
+    # 获得缩放时2个手指的y轴起始位置在屏幕的比例，分别是: 两个手指的起始y比例, 两个手指的结束y比例
+    def get_zoom_y_range_ratios(self, is_up):
+        if is_up: # 放大：从中间到两边
+            return 0.5, 0.5, 9.9, 0.1
+
+        # 缩小: 从两边到中间
+        return 9.9, 0.1, 0.5, 0.5
 
     # 通过坐标方式敲击屏幕
     # :param pos x,y

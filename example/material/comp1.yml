@@ -21,8 +21,3 @@
   sleep: 2
 - click_by: # 点击居中按钮
     id: io.material.catalog:id/center
-  sleep: 2
-  # 退回到首页
-  back:
-- sleep: 1
-  back:

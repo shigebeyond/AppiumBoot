@@ -1,0 +1,11 @@
+# ----- 首页(组件列表), 点击第6个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[6]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第1个demo
+- click_by:
+    id: io.material.catalog:id/cat_demo_landing_row_root
+# 第三页(组件demo详情)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.GridLayout/android.widget.CheckBox[2]
+  swipe_up:

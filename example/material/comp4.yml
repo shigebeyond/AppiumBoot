@@ -28,8 +28,3 @@
     xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButtonToggleGroup[2]/com.google.android.material.button.MaterialButton[1]
 - click_by:
     xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButtonToggleGroup[3]/com.google.android.material.button.MaterialButton[1]
-- # 退回到首页
-  sleep: 1
-  back:
-- sleep: 1
-  back:

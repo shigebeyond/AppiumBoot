@@ -1,0 +1,14 @@
+# ----- 首页(组件列表), 点击第7个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[7]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第1个demo
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout
+  sleep: 1
+# 第三页(组件demo详情)
+- click_by: # 切换chip样式
+    id: io.material.catalog:id/cat_chip_text_length_switch
+  sleep: 1
+- click_by: # 点击chip
+    id: io.material.catalog:id/cat_chip_action_chip

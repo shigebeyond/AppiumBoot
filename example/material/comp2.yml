@@ -40,8 +40,3 @@
 - sleep: 1
   click_by: # 切换页签
     aid: Stopwatch
-  # 退回到首页
-- sleep: 1
-  back:
-- sleep: 1
-  back:

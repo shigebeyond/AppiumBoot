@@ -21,8 +21,3 @@
   swipe_up: # 上拉
 - sleep: 1
   swipe_down: # 下拉
-- # 退回到首页
-  sleep: 1
-  back:
-- sleep: 1
-  back:

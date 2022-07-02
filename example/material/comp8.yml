@@ -1,0 +1,15 @@
+# ----- 首页(组件列表), 点击第9个单元格(组件)
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[8]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第1个demo
+- click_by:
+    id: io.material.catalog:id/cat_demo_landing_row_root
+# 第三页(组件demo详情)
+# 循环3次
+- for(8) :
+    - click_by:
+        xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/com.google.android.material.button.MaterialButton[$for_i]
+      sleep: 1
+      back:
+    - sleep: 2

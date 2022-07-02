@@ -1,0 +1,21 @@
+# ----- 首页(组件列表), 点击第1个单元格(组件) -- 因为已经下拉过一行, 因此还是用上一行的单元格序号
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[7]/android.widget.LinearLayout # 按钮的xpath路径
+  sleep: 1
+# 第二页(组件demo列表), 点击第1个demo
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout
+  sleep: 1
+# 第三页(组件demo详情)
+- click_by: # 旋转fab
+    id: io.material.catalog:id/rotate_fabs
+  sleep: 1
+- click_by: # 隐藏fab
+    id: io.material.catalog:id/show_hide_fabs
+  sleep: 1
+- click_by: # 显示fab
+    id: io.material.catalog:id/show_hide_fabs
+  sleep: 1
+- click_by: # +按钮
+    aid: Regular FAB
+  sleep: 1
