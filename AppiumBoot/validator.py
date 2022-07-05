@@ -10,7 +10,7 @@ from requests import Response
 # 校验器
 class Validator(response_wrapper.ResponseWrap):
 
-    def __init__(self, driver: webdriver.Chrome, res: Response = None):
+    def __init__(self, driver: webdriver.Remote, res: Response = None):
         super(Validator, self).__init__(driver, res)
         # 校验函数映射
         self.funcs = {
@@ -35,6 +35,12 @@ class Validator(response_wrapper.ResponseWrap):
 
         if self.res != None and 'validate_by_css' in config:
             return self.run_type('css', config['validate_by_css'])
+
+        if 'validate_by_id' in config:
+            return self.run_type('id', config['validate_by_id'])
+
+        if 'validate_by_aid' in config:
+            return self.run_type('aid', config['validate_by_aid'])
 
         if 'validate_by_class' in config:
             return self.run_type('class', config['validate_by_class'])

@@ -7,6 +7,7 @@ import re
 import os
 import random
 from jsonpath import jsonpath
+from selenium.webdriver.common.by import By
 
 # 读yaml配置
 # :param yaml_file (步骤配置的)yaml文件
@@ -129,3 +130,14 @@ def parse_and_call_func(expr):
     # 调用函数
     return funcs[func](param)
 
+# 类型转by
+def type2by(type):
+    if type == 'id':
+        return By.ID
+    if type == 'aid':
+        return By.ACCESSIBILITY_ID
+    if type == 'class':
+        return By.CLASS_NAME
+    if type == 'xpath':
+        return By.XPATH
+    raise Exception(f"不支持查找类型: {type}")

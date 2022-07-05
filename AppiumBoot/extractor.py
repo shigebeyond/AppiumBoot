@@ -12,7 +12,7 @@ import re
 # 抽取器
 class Extractor(response_wrapper.ResponseWrap):
 
-    def __init__(self, driver: webdriver.Chrome, res: Response = None):
+    def __init__(self, driver: webdriver.Remote, res: Response = None):
         super(Extractor, self).__init__(driver, res)
 
     # 抽取参数
@@ -23,8 +23,14 @@ class Extractor(response_wrapper.ResponseWrap):
         if 'extract_by_xpath' in config:
             return self.run_type('xpath', config['extract_by_xpath'])
 
-        if self.res != None and 'validate_by_css' in config:
-            return self.run_type('css', config['validate_by_css'])
+        if self.res != None and 'extract_by_css' in config:
+            return self.run_type('css', config['extract_by_css'])
+
+        if 'extract_by_id' in config:
+            return self.run_type('id', config['extract_by_id'])
+
+        if 'extract_by_aid' in config:
+            return self.run_type('aid', config['extract_by_aid'])
 
         if 'extract_by_class' in config:
             return self.run_type('class', config['extract_by_class'])

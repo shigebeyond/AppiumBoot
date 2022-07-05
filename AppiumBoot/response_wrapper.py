@@ -6,11 +6,12 @@ from lxml import etree
 from requests import Response
 from selenium import webdriver
 from jsonpath import jsonpath
+from selenium.webdriver.common.by import By
 
 # 响应包装器
 class ResponseWrap(object):
 
-    def __init__(self, driver: webdriver.Chrome, res: Response = None):
+    def __init__(self, driver: webdriver.Remote, res: Response = None):
         # webdriver
         self.driver = driver
         # 响应
@@ -24,9 +25,6 @@ class ResponseWrap(object):
                 return html.cssselect(path).text
 
             raise Exception(f"无http响应, 不支持查找类型: {type}")
-
-        if type == 'class':
-            return self.driver.find_element_by_class_name(path).text
 
         if type == 'xpath':
             # 检查xpath是否最后有属性
@@ -45,10 +43,10 @@ class ResponseWrap(object):
                     return ele.get(prop)
                 return ele.text
 
-            ele = self.driver.find_element_by_xpath(path)
+            ele = self.driver.find_element(By.XPATH, path)
             if prop != '': # 获得属性
                 return ele.get_attribute(prop)
-            return ele.text
+            return ele.get_text_or_content()
 
         if type == 'jsonpath':
             if self.res != None:
@@ -56,5 +54,8 @@ class ResponseWrap(object):
                 return jsonpath(data, path)[0]
 
             raise Exception(f"无http响应, 不支持查找类型: {type}")
+
+        if type == 'id' or type == 'aid' or type == 'class':
+            return self.driver.find_element(type2by(type), path).get_text_or_content()
 
         raise Exception(f"不支持查找类型: {type}")

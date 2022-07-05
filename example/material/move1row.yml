@@ -1,0 +1,13 @@
+# 上滑后, 首页的单元格的xpath序号又从1开始
+- sleep: 2
+#- swipe_up: 0.55 # 移动的距离居然每次不一样
+#- scroll_by: # 滑4行，移动距离过长，有惯性
+#- move_by: # 滑4行，但头部会收缩
+#    by: xpath
+#    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[8]/android.widget.LinearLayout # 第8个
+#    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout # 第2个
+#- move_track: ['50,900', '50,20']
+- move_by: # 逐行上滑，短距离，减少影响
+    by: xpath
+    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout # 第8个
+    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout # 第2个

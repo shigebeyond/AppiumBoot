@@ -8,38 +8,49 @@
       appPackage: io.material.catalog
       appActivity: io.material.catalog.main.MainActivity
       automationName: UiAutomator2
-#- include: material/comp1.yml  # bottom app bar
-#- include: material/back.yml
-#- include: material/comp2.yml  # bottom navigation
-#- include: material/back.yml
-#- include: material/comp3.yml  # bottom sheet
-#- include: material/back.yml
-#- include: material/comp4.yml  # buttom
-#- include: material/back.yml
-#- include: material/comp5.yml # card
-#- include: material/back.yml
-#- include: material/comp6.yml # checkbox
-#- include: material/back.yml
-#- include: material/comp7.yml # chip
-#- include: material/back.yml
-#- include: material/comp8.yml # dialogs
-#- include: material/back.yml
-# 上滑后, 首页的单元格的xpath序号又从1开始
-- sleep: 2
-#- swipe_up: 0.55 # 移动的距离居然每次不一样
-#- scroll_by: # 滑4行，移动距离过长，有惯性
-#- move_by: # 滑4行，但头部会收缩
-#    by: xpath
-#    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[8]/android.widget.LinearLayout # 第8个
-#    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout # 第2个
-#- move_track: ['50,900', '50,20']
-- move_by: # 逐行上滑，短距离，减少影响
-    by: xpath
-    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout # 第8个
-    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout # 第2个
-#- include: material/comp9.yml
-#- include: material/back.yml
-- include: material/comp10.yml
+- include: material/comp1.yml  # bottom app bar
 - include: material/back.yml
-
+- include: material/comp2.yml  # bottom navigation
+- include: material/back.yml
+- include: material/comp3.yml  # bottom sheet
+- include: material/back.yml
+- include: material/comp4.yml  # buttom
+- include: material/back.yml
+- include: material/comp5.yml # card
+- include: material/back.yml
+- include: material/comp6.yml # checkbox
+- include: material/back.yml
+- include: material/comp7.yml # chip
+- include: material/back.yml
+- include: material/comp8.yml # dialogs
+- include: material/back.yml
+- include: material/move1row.yml
+- include: material/comp9.yml # floating action button
+- include: material/back.yml
+- include: material/comp10.yml # font
+- include: material/back.yml
+- include: material/move1row.yml
+- include: material/comp11.yml # menu
+- include: material/back.yml
+- include: material/comp12.yml # picker
+- include: material/back.yml
+- include: material/move1row.yml
+- include: material/comp13.yml # radio button
+- include: material/back.yml
+- include: material/comp14.yml # shape theming
+- include: material/back.yml
+- include: material/move1row.yml
+- include: material/comp15.yml #  switch
+- include: material/back.yml
+- include: material/comp16.yml #  tab
+- include: material/back.yml
+- include: material/move1row.yml
+- include: material/comp17.yml # text field
+- include: material/back.yml
+- include: material/comp18.yml # top app bar
+- include: material/back.yml
+- include: material/move1row.yml
+- swipe_up: # 最后一个直接上滑
+- include: material/comp19.yml # transformation
+- include: material/back.yml
 - sleep: 20

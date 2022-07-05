@@ -22,8 +22,27 @@ from selenium.webdriver.common.action_chains import ActionChains
 from appium import webdriver
 from selenium.webdriver.common.by import By
 from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.webelement import WebElement
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+# 扩展WebElement方法
+def get_text_or_content(self):
+    r = self.text
+    if r != '':
+        return r
+    return self.get_attribute("content-desc")
+WebElement.get_text_or_content = get_text_or_content
+
+# 扩展driver方法
+def is_element_exist(self, by):
+    try:
+        self.find_element(by)
+        return True
+    except:
+        return False
+WebDriver.is_element_exist = is_element_exist
 
 # 跳出循环的异常
 class BreakException(Exception):
@@ -455,35 +474,12 @@ class Boot(object):
                 print_exception(str(ex))
                 continue
 
-            if ele.tag_name == 'select': # 设置输入框
-                # js = f"$('select[name={name}]')[0].selectedIndex = '{value}'"
-                # self.driver.execute_script(js)
-                Select(ele).select_by_value(value)
-            elif ele.get_attribute('type') == "hidden": # 设置隐藏域
-                # hidden input调用send_keys()报错：selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
-                # https://www.cnblogs.com/qican/p/14037564.html
-                #js = f"$('input[name={name}]').val('{value}')" # jquery
-                js = f"arguments[0].value = '{value}'" # 原生js
-                self.driver.execute_script(js, ele)
-            else:
-                ele.clear() # 先清空
-                ele.send_keys(value) # 后输入
-
-    # 类型转by
-    def type2by(self, type):
-        if type == 'id':
-            return By.ID
-        if type == 'aid':
-            return By.ACCESSIBILITY_ID
-        if type == 'class':
-            return By.CLASS_NAME
-        if type == 'xpath':
-            return By.XPATH
-        raise Exception(f"不支持查找类型: {type}")
+            ele.clear() # 先清空
+            ele.send_keys(value) # 后输入
 
     # 根据指定类型，查找元素
     def _find_by(self, type, path):
-        return self.driver.find_element(self.type2by(type), path)
+        return self.driver.find_element(type2by(type), path)
 
     # 根据任一类型，查找元素
     def _find_by_any(self, config):
@@ -493,7 +489,7 @@ class Boot(object):
                 path = config[type]
                 if type == 'xpath': # xpath支持变量
                     path = replace_var(path)
-                return self.driver.find_element(self.type2by(type), path)
+                return self.driver.find_element(type2by(type), path)
         raise Exception(f"没有查找类型: {config}")
 
     # 根据任一类型，查找元素
@@ -502,7 +498,7 @@ class Boot(object):
         for type in types:
             if type in config:
                 path = config[type]
-                return self.driver.find_elements(self.type2by(type), path)
+                return self.driver.find_elements(type2by(type), path)
         raise Exception(f"没有查找类型: {config}")
 
     # 屏幕滑动(传坐标)

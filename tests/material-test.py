@@ -11,6 +11,8 @@ desired_caps={
   "appPackage": "io.material.catalog",
   "appActivity": "io.material.catalog.main.MainActivity",
   "automationName": "UiAutomator2"
+  # "appPackage": "com.tencent.mm", # 微信,每次运行都会清会话，要重新登录，烦死，不测了
+  # "appActivity": "com.tencent.mm.ui.LauncherUI",
 }
 driver = webdriver.Remote(server,desired_caps)
 time.sleep(5)
