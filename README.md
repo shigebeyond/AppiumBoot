@@ -1,11 +1,11 @@
 [GitHub](https://github.com/shigebeyond/AppiumBoot) | [Gitee](https://gitee.com/shigebeyond/AppiumBoot)
 
-# AppiumBoot - yaml驱动Selenium测试
+# AppiumBoot - yaml驱动Appium测试
 
 ## 概述
-Selenium是基于浏览器的自动化测试工具，但是要写python代码；
+Appium是移动端的自动化测试工具，但是要写python代码；
 
-考虑到部分测试伙伴python能力不足，因此扩展Selenium，支持通过yaml配置测试步骤;
+考虑到部分测试伙伴python能力不足，因此扩展Appium，支持通过yaml配置测试步骤;
 
 框架通过编写简单的yaml, 就可以执行一系列复杂的浏览器操作步骤, 如填充表单/提交表单/上传文件/下载文件/识别验证码/校验响应/提取变量/打印变量等，极大的简化了伙伴编写自动化测试脚本的工作量与工作难度，大幅提高人效；
 
@@ -14,11 +14,11 @@ Selenium是基于浏览器的自动化测试工具，但是要写python代码；
 框架提供`include`机制，用来加载并执行其他的步骤yaml，一方面是功能解耦，方便分工，一方面是功能复用，提高效率与质量，从而推进测试整体的工程化。
 
 ## 特性
-1. 基于 selenium 的webdriver
-2. 使用 selenium-requests 扩展来处理post请求与上传请求
-3. 支持通过yaml来配置执行的步骤，简化了自动化测试开发:
+1. 基于 Appium 的webdriver
+2. 支持通过yaml来配置执行的步骤，简化了自动化测试开发:
 每个步骤可以有多个动作，但单个步骤中动作名不能相同（yaml语法要求）;
-动作代表webdriver上的一种操作，如get/post/upload等等;
+动作代表webdriver上的一种操作，如tap/swipe/scoll等等;
+3. 支持复杂的手势
 4. 支持提取器
 5. 支持校验器
 6. 支持识别验证码(使用有道ocr)
@@ -55,81 +55,7 @@ AppiumBoot 步骤配置目录/step-*.yml
 
 每个步骤里有多个动作(如sleep)，如果动作有重名，就另外新开一个步骤写动作，这是由yaml语法限制导致的，但不影响步骤执行。
 
-简单贴出2个demo
-1. 下载图片: 详见 [example/step-mn52.yml](https://github.com/shigebeyond/AppiumBoot/blob/main/example/step-mn52.yml)
-```yaml
-# 下载美女图
-- # 首页
-  goto:
-    url: https://www.mn52.com/
-  # 下载多个图片
-  download_img_elements_by:
-    xpath: '//img[@class="img-responsive"]'
-    save_dir: downloads
-```
-
-2. 内部项目测试: 详见 [example/step-jym.yml](https://github.com/shigebeyond/AppiumBoot/blob/main/example/step-jym.yml)
-```yaml
-- # 登录
-  goto:
-    url: http://admin.jym1.com/login
-  sleep: 5 # 人工介入，浏览器F12打开开发者模式，切network，打开Preserve log，来监听提交登录验证的请求，以便检查识别的验证码参数是否有问题
-  # 识别验证码, 验证码会写到变量captcha
-  recognize_captcha:
-    url: http://admin.jym1.com/login/verify_image
-- # 商品列表
-  goto:
-    url: http://admin.jym1.com/goods/goods_service_list
-    # 网页中html的提取变量
-    extract_by_xpath:
-      goods_id: //table/tbody/tr[1]/td[1] # 第一行第一列
-  #  extract_by_class:
-  #    goods_id: table>tbody>tr:nth-child(1)>td:nth-child(1) # 第一行第一列
-- # 商品详情
-  goto:
-    url: http://admin.jym1.com/goods/goods_info?id=$goods_id&type=1
-  download_img_element_by:
-    xpath: //img[@class="layui-upload-img"] # 过滤<img>标签的xpath路径， 与css属性只能二选一
-    #css: img.layui-upload-img # 过滤<img>标签的css selector模式， 与xpath属性只能二选一
-- # 新建门店
-  goto:
-    url: http://admin.jym1.com/store/add_store
-  upload: # 上传文件/图片
-    url: http://admin.jym1.com/upload/common_upload_img/store_img
-    files: # 上传的多个文件
-      # 参数名:文件本地路径
-      file: /home/shi/fruit.jpeg
-    extract_by_jsonpath:
-      img: $.data.url
-  # 提交新建门店，不要用 submit_form，ui中太麻烦了太复杂了（如三级地址要逐级动态加载）
-  post:
-    url: http://admin.jym1.com/store/add_store
-    is_ajax: true
-    data: # post的参数
-      # 参数名:参数值
-      store_name: teststore-${random_str(6)}
-      store_logo_url: '$img'
-      store_img_urls: '["$img"]'
-      province: 450000
-      city: 450100
-      district: 450102
-      address: testadd
-      phone: 1347115${random_int(4)}
-      business_day_from: 1
-      business_day_to: 1
-      work_start_time: 09:00:00 - 20:00:00
-      store_type: 0
-      licence_url: '$img'
-      license_code: 91450100788439413D
-      card_true_name: shi
-      bank_name: 中国工商银行
-      bank_card_num: 6222024100018669328
-      store_work_time: '["{\"date_from\":\"1\",\"date_to\":\"1\",\"work_start_time\":\"09:00:00\",\"work_end_time\":\"20:00:00\"}"]'
-- # 门店列表,查看新建门店
-  goto:
-    url: http://admin.jym1.com/store/store_list
-  sleep: 2
-```
+[demo](https://github.com/shigebeyond/AppiumBoot/blob/main/example/)
 
 ## 查找元素的方法
 1. id:
@@ -142,16 +68,34 @@ AppiumBoot 步骤配置目录/step-*.yml
 
 每个步骤可以有多个动作，但单个步骤中动作名不能相同（yaml语法要求）;
 
-动作代表webdriver上的一种操作，如get/post/upload等等;
+动作代表webdriver上的一种操作，如tap/swipe/scoll等等;
 
 下面详细介绍每个动作:
 
-1. sleep: 线程睡眠; 
+1. init_driver: 初始化driver
+```yaml
+init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: io.material.catalog
+      appActivity: io.material.catalog.main.MainActivity
+      automationName: UiAutomator2
+```
+
+2. close_driver: 关闭driver
+```yaml
+close_driver:
+```
+
+3. sleep: 线程睡眠; 
 ```yaml
 sleep: 2 # 线程睡眠2秒
 ```
 
-2. print: 打印, 支持输出变量/函数; 
+4. print: 打印, 支持输出变量/函数; 
 ```yaml
 # 调试打印
 print: "总申请数=${dyn_data.total_apply}, 剩余份数=${dyn_data.quantity_remain}"
@@ -175,119 +119,131 @@ random_int(n): 随机数字，参数n是数字个数
 incr(key): 自增值，从1开始，参数key表示不同的自增值，不同key会独立自增
 ```
 
-4. get: 发get请求, 但无跳转; 
+9. input_by_id: 填充 id 指定的输入框; 
 ```yaml
-get:
-    url: $dyn_data_url # url,支持写变量
-    extract_by_eval:
-      dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
+input_by_id:
+  # 输入框id: 填充的值(支持写变量)
+  'io.material.catalog:id/cat_demo_landing_row_root': '18877310999'
 ```
 
-5. post: 发post请求, 但无跳转; 
+9. input_by_aid: 填充 accessibility_id 指定的输入框; 
 ```yaml
-post:
-    url: http://admin.jym1.com/store/add_store # url,支持写变量
-    is_ajax: true
-    data: # post的参数
-      # 参数名:参数值
-      store_name: teststore-${random_str(6)}
-      store_logo_url: '$img'
+input_by_aid:
+  # 输入框accessibility_id: 填充的值(支持写变量)
+  'Input name': '18877310999'
 ```
 
-6. upload: 上传文件; 
-```yaml
-upload: # 上传文件/图片
-    url: http://admin.jym1.com/upload/common_upload_img/store_img
-    files: # 上传的多个文件
-      # 参数名:文件本地路径
-      file: /home/shi/fruit.jpeg
-    extract_by_jsonpath:
-      img: $.data.url
-```
-
-9. input_by_class: 填充 css selector 指定的输入框; 
+9. input_by_class: 填充 指定类名的输入框; 
 ```yaml
 input_by_class:
-  # 输入框css selector模式: 填充的值(支持写变量)
-  '#account': '18877310999'
+  # 输入框类名: 填充的值(支持写变量)
+  'android.widget.EditText': '18877310999'
 ```
 
 10. input_by_xpath: 填充 xpath 指定的输入框; 
 ```yaml
 input_by_xpath:
   # 输入框xpath路径: 填充的值(支持写变量)
-  "//input[@id='account']": '18877310999'
+  '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.EditText': aaa
 ```
 
-11. download: 下载文件; 
-变量`download_file`记录最新下载的单个文件
+1. swipe: 屏幕横扫(传坐标)
 ```yaml
-download:
-    url: https://img.alicdn.com/tfscom/TB1t84NPuL2gK0jSZPhXXahvXXa.jpg_q90.jpg
-    save_dir: downloads # 保存的目录，默认为 downloads
-    save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
+swipe: 
+    from: 100,100 # 起点坐标
+    to: 200,200 # 终点坐标
+    duration: 2 # 耗时秒数, 可省
 ```
 
-14. recognize_captcha: 识别验证码; 
-参数同 `download` 动作， 因为内部就是调用 `download`;
-而变量`captcha`记录识别出来的验证码
-```
-recognize_captcha:
-    url: http://admin.jym1.com/login/verify_image
-    # save_dir: downloads # 保存的目录，默认为 downloads
-    # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
+1. swipe_up: 上滑(传比例)
+```yaml
+swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
+swipe_up: # 默认移动幅度比例为0.5
 ```
 
-15. recognize_captcha_element: 识别验证码标签中的验证码; 
-参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
-而变量`captcha`记录识别出来的验证码
-```
-recognize_captcha_element:
-    xpath: //img[@class="pro-img"] # 过滤<img>标签的xpath路径， 与css属性只能二选一
-    #css: img.pro-img # 过滤<img>标签的css selector模式， 与xpath属性只能二选一
-    #save_dir: downloads # 保存的目录，默认为 downloads
-    #save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
+1. swipe_down: 下滑(传比例)
+```yaml
+swipe_down: 0.55 # 移动幅度比例(占屏幕高度的比例)
+swipe_down: # 默认移动幅度比例为0.5
 ```
 
-16. click_by: 点击指定的按钮; 
+1. swipe_left: 左滑(传比例)
+```yaml
+swipe_left: 0.55 # 移动幅度比例(占屏幕宽度的比例)
+swipe_left: # 默认移动幅度比例为0.5
+```
+
+1. swipe_right: 右滑(传比例)
+```yaml
+swipe_right: 0.55 # 移动幅度比例(占屏幕宽度的比例)
+swipe_right: # 默认移动幅度比例为0.5
+```
+
+1. swipe_vertical: 垂直方向(上下)滑动(传比例)
+```yaml
+swipe_vertical: 0.2,0.7 # y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
+```
+
+1. swipe_horizontal: 水平方向(左右)滑动(传比例)
+```yaml
+swipe_horizontal: 0.2,0.7 # x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
+```
+
+1. move_track: 移动轨迹(传坐标序列)
+```yaml
+move_track: '800,1600;100,1600;100,600;800,600;360,600;360,1100' # 坐标序列，坐标之间使用;分割，如x1,y1;x2,y2
+```
+
+1. drag_and_drop_by: 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
+```yaml
+drag_and_drop_by: 
+    by: xpath # 元素查找方式: id/sid/class/xpath    
+    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout
+    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
+```
+
+1. scroll_by: 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
+```yaml
+scroll_by: 
+    by: xpath # 元素查找方式: id/sid/class/xpath    
+    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout
+    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
+```
+
+1. move_by: 移动(传元素): 从一个元素移动到另一元素，无惯性
+```yaml
+move_by: 
+    by: xpath # 元素查找方式: id/sid/class/xpath    
+    from: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout
+    to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
+```
+
+1. zoom_in: 放大
+```yaml
+zoom_in: 
+```
+
+1. zoom_out: 缩小
+```yaml
+zoom_out: 
+```
+
+1. tap: 敲击屏幕(传坐标)
+```yaml
+tap: 200,200
+```
+
+1. tap_by: 敲击元素
+```yaml
+tap_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
+    duration: 10 # 耗时秒数, 可省, 可用于模拟长按
+```
+
+16. click_by: 点击元素; 
 ```yaml
 click_by:
-  css: 'button[type=submit]' # 按钮的css selector模式，与xpath属性只能二选一
-  #xpath: '//button[@type="submit"]' # 按钮的xpath路径，与css属性只能二选一
-```
-
-18. double_click_by: 双击指定的按钮; 
-```yaml
-double_click_by:
-  css: 'button[type=submit]' # 按钮的css selector模式，与xpath属性只能二选一
-  #xpath: '//button[@type="submit"]' # 按钮的xpath路径，与css属性只能二选一
-```
-
-21. max_window: 最大化窗口; 
-```yaml
-max_window: 
-```
-
-22. resize_window: 调整窗口大小; 
-```yaml
-resize_window: 100,200 # 宽,高
-```
-
-23. switch_to_frame_by: 切换进入iframe; 
-```yaml
-switch_to_frame_by:
-  css: 'iframe#main' # iframe的css selector模式，与xpath属性只能二选一
-  #xpath: '//iframe[@id="main"]' # iframe的xpath路径，与css属性只能二选一
-```
-
-24. switch_to_frame_out: 跳回到主框架页; 
-```yaml
-switch_to_frame_out: 
-```
-
-25. switch_to_window: 切到第几个窗口; 
-```yaml
-switch_to_window: 1 # 切到第1个窗口
+  xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
 ```
 
 26. screenshot: 整个窗口截图存为png; 
@@ -311,24 +267,19 @@ screenshot_element_by
 execute_js: alert('hello world')
 ```
 
-29. scroll: 滚动到指定位置; 
-```yaml
-scroll: 100,200
-```
-
-30. swipe_up: 滚动到顶部; 
-```yaml
-swipe_up: 
-```
-
-31. swipe_down: 滚动到底部; 
-```yaml
-swipe_down: 
-```
-
 32. back: 返回键; 
 ```yaml
 back: 
+```
+
+32. keyevent: 模拟系统键; 
+```yaml
+keyevent: '4'
+```
+
+32. open_notifications: 打开手机的通知栏; 
+```yaml
+open_notifications: 
 ```
 
 33. for: 循环; 
@@ -389,9 +340,69 @@ set_vars:
 print_vars:
 ```
 
-40. set_base_url: 设置基础url
+42. set_base_url: 设置基础url
 ```yaml
 set_base_url: https://www.taobao.com/
+```
+
+4. get: 发get请求, 但无跳转; 
+```yaml
+get:
+    url: $dyn_data_url # url,支持写变量
+    extract_by_eval:
+      dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
+```
+
+5. post: 发post请求, 但无跳转; 
+```yaml
+post:
+    url: http://admin.jym1.com/store/add_store # url,支持写变量
+    is_ajax: true
+    data: # post的参数
+      # 参数名:参数值
+      store_name: teststore-${random_str(6)}
+      store_logo_url: '$img'
+```
+
+6. upload: 上传文件; 
+```yaml
+upload: # 上传文件/图片
+    url: http://admin.jym1.com/upload/common_upload_img/store_img
+    files: # 上传的多个文件
+      # 参数名:文件本地路径
+      file: /home/shi/fruit.jpeg
+    extract_by_jsonpath:
+      img: $.data.url
+```
+
+11. download: 下载文件; 
+变量`download_file`记录最新下载的单个文件
+```yaml
+download:
+    url: https://img.alicdn.com/tfscom/TB1t84NPuL2gK0jSZPhXXahvXXa.jpg_q90.jpg
+    save_dir: downloads # 保存的目录，默认为 downloads
+    save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
+```
+
+14. recognize_captcha: 识别验证码; 
+参数同 `download` 动作， 因为内部就是调用 `download`;
+而变量`captcha`记录识别出来的验证码
+```
+recognize_captcha:
+    url: http://admin.jym1.com/login/verify_image
+    # save_dir: downloads # 保存的目录，默认为 downloads
+    # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
+```
+
+15. recognize_captcha_element: 识别验证码标签中的验证码; 
+参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
+而变量`captcha`记录识别出来的验证码
+```
+recognize_captcha_element:
+    xpath: //img[@class="pro-img"] # 过滤<img>标签的xpath路径， 与css属性只能二选一
+    #css: img.pro-img # 过滤<img>标签的css selector模式， 与xpath属性只能二选一
+    #save_dir: downloads # 保存的目录，默认为 downloads
+    #save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
 ## 校验器

@@ -7,7 +7,7 @@
     xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[2]
 # 第三页(组件demo详情)
   # 拖动跑
-  move_track: ['360,1100', '360,600', '800,600', '800,1600', '100,1600', '100,600']
+  move_track: '360,1100;360,600;800,600;800,1600;100,1600;100,600'
 # 返回第二页(组件demo列表), 点击第4个demo
 - back:
   click_by:

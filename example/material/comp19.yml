@@ -11,7 +11,7 @@
     aid: FAB
   sleep: 1
   # 拖动跑
-  move_track: ['800,1600', '100,1600', '100,600', '800,600', '360,600', '360,1100']
+  move_track: '800,1600;100,1600;100,600;800,600;360,600;360,1100'
 - sleep: 1
   click_by:
     xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/com.google.android.material.card.MaterialCardView/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.TextView[1]
