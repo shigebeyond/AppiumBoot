@@ -17,14 +17,15 @@ class Extractor(response_wrapper.ResponseWrap):
 
     # 抽取参数
     def run(self, config):
-        if self.res != None and 'extract_by_jsonpath' in config:
-            return self.run_type('jsonpath', config['extract_by_jsonpath'])
+        if self.res != None:
+            if 'extract_by_jsonpath' in config:
+                return self.run_type('jsonpath', config['extract_by_jsonpath'])
+
+            if 'extract_by_css' in config:
+                return self.run_type('css', config['extract_by_css'])
 
         if 'extract_by_xpath' in config:
             return self.run_type('xpath', config['extract_by_xpath'])
-
-        if self.res != None and 'extract_by_css' in config:
-            return self.run_type('css', config['extract_by_css'])
 
         if 'extract_by_id' in config:
             return self.run_type('id', config['extract_by_id'])

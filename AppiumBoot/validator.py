@@ -27,14 +27,15 @@ class Validator(response_wrapper.ResponseWrap):
 
     # 执行校验
     def run(self, config):
-        if self.res != None and 'validate_by_jsonpath' in config:
-            return self.run_type('jsonpath', config['validate_by_jsonpath'])
+        if self.res != None:
+            if 'validate_by_jsonpath' in config:
+                return self.run_type('jsonpath', config['validate_by_jsonpath'])
+
+            if 'validate_by_css' in config:
+                return self.run_type('css', config['validate_by_css'])
 
         if 'validate_by_xpath' in config:
             return self.run_type('xpath', config['validate_by_xpath'])
-
-        if self.res != None and 'validate_by_css' in config:
-            return self.run_type('css', config['validate_by_css'])
 
         if 'validate_by_id' in config:
             return self.run_type('id', config['validate_by_id'])

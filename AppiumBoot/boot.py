@@ -61,6 +61,10 @@ class Boot(object):
         self.downloaded_files = {}
         # 基础url
         self.base_url = None
+        # 当前页面的校验器
+        self.validator = validator.Validator(self.driver)
+        # 当前页面的提取器
+        self.extractor = extractor.Extractor(self.driver)
         # 动作映射函数
         self.actions = {
             'init_driver': self.init_driver,
@@ -106,6 +110,19 @@ class Boot(object):
             'download': self.download,
             'recognize_captcha': self.recognize_captcha,
             'recognize_captcha_element': self.recognize_captcha_element,
+            'validate_by_jsonpath': self.validate_by_jsonpath,
+            'validate_by_css': self.validate_by_css,
+            'validate_by_xpath': self.validate_by_xpath,
+            'validate_by_id': self.validate_by_id,
+            'validate_by_aid': self.validate_by_aid,
+            'validate_by_class': self.validate_by_class,
+            'extract_by_jsonpath': self.extract_by_jsonpath,
+            'extract_by_css': self.extract_by_css,
+            'extract_by_xpath': self.extract_by_xpath,
+            'extract_by_id': self.extract_by_id,
+            'extract_by_aid': self.extract_by_aid,
+            'extract_by_class': self.extract_by_class,
+            'extract_by_eval': self.extract_by_eval,
         }
 
     '''
@@ -643,7 +660,7 @@ class Boot(object):
         return url
 
     # get请求
-    # :param config {url, is_ajax, validate_by_jsonpath, validate_by_class, validate_by_xpath, extract_by_jsonpath, extract_by_class, extract_by_xpath, extract_by_eval}
+    # :param config {url, is_ajax, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
     def get(self, config = {}):
         url = self._get_url(config)
         headers = {}
@@ -657,7 +674,7 @@ class Boot(object):
         self._analyze_response(res, config)
 
     # post请求
-    # :param config {url, is_ajax, data, validate_by_jsonpath, validate_by_class, validate_by_xpath, extract_by_jsonpath, extract_by_class, extract_by_xpath, extract_by_eval}
+    # :param config {url, is_ajax, data, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
     def post(self, config = {}):
         url = self._get_url(config)
         data = replace_var(config['data'])
@@ -671,7 +688,7 @@ class Boot(object):
         self._analyze_response(res, config)
 
     # 上传文件
-    # :param config {url, files, validate_by_jsonpath, validate_by_class, validate_by_xpath, extract_by_jsonpath, extract_by_class, extract_by_xpath, extract_by_eval}
+    # :param config {url, files, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
     def upload(self, config = {}):
         url = self._get_url(config)
         # 文件
@@ -769,6 +786,45 @@ class Boot(object):
         print(f"识别验证码: 图片为{file_path}, 验证码为{captcha}")
         # 删除文件
         #os.remove(file)
+
+    def validate_by_jsonpath(self, fields):
+        return self.run_type('jsonpath', fields)
+
+    def validate_by_css(self, fields):
+        return self.run_type('css', fields)
+
+    def validate_by_xpath(self, fields):
+        return self.run_type('xpath', fields)
+
+    def validate_by_id(self, fields):
+        return self.run_type('id', fields)
+
+    def validate_by_aid(self, fields):
+        return self.run_type('aid', fields)
+
+    def validate_by_class(self, fields):
+        return self.run_type('class', fields)
+
+    def extract_by_jsonpath(self, fields):
+        return self.extractor.run_type('jsonpath', fields)
+
+    def extract_by_css(self, fields):
+        return self.extractor.run_type('css', fields)
+
+    def extract_by_xpath(self, fields):
+        return self.extractor.run_type('xpath', fields)
+
+    def extract_by_id(self, fields):
+        return self.extractor.run_type('id', fields)
+
+    def extract_by_aid(self, fields):
+        return self.extractor.run_type('aid', fields)
+
+    def extract_by_class(self, fields):
+        return self.extractor.run_type('class', fields)
+
+    def extract_by_eval(self, fields):
+        return self.extractor.run_eval(fields)
 
 
 # cli入口

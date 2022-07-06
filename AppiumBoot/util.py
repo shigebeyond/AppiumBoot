@@ -33,7 +33,6 @@ def random_str(n):
         random_str += base_str[random.randint(0, length)]
     return random_str
 
-
 # 生成一个指定长度的随机数字
 def random_int(n):
     n = int(n)

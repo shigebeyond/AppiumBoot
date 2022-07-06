@@ -123,7 +123,7 @@ incr(key): 自增值，从1开始，参数key表示不同的自增值，不同ke
 ```yaml
 input_by_id:
   # 输入框id: 填充的值(支持写变量)
-  'io.material.catalog:id/cat_demo_landing_row_root': '18877310999'
+  'io.material.catalog:id/cat_demo_input': '18877310999'
 ```
 
 9. input_by_aid: 填充 accessibility_id 指定的输入框; 
@@ -236,13 +236,18 @@ tap: 200,200
 1. tap_by: 敲击元素
 ```yaml
 tap_by:
+    # 元素查找方式(id/sid/class/xpath) : 查找的值
+    #id: io.material.catalog:id/cat_demo_landing_row_root
     xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
-    duration: 10 # 耗时秒数, 可省, 可用于模拟长按
+    # 耗时秒数, 可省, 可用于模拟长按
+    duration: 10
 ```
 
 16. click_by: 点击元素; 
 ```yaml
 click_by:
+  # 元素查找方式(id/sid/class/xpath) : 查找的值
+  #id: io.material.catalog:id/cat_demo_landing_row_root
   xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
 ```
 
@@ -256,8 +261,10 @@ screenshot:
 27. screenshot_element_by: 对某个标签截图存为png; 
 ```yaml
 screenshot_element_by
-    css: 'iframe#main' # iframe的css selector模式，与xpath属性只能二选一
-    #xpath: '//iframe[id="main"]' # iframe的xpath路径，与css属性只能二选一
+    # 元素查找方式(id/sid/class/xpath) : 查找的值
+    #id: io.material.catalog:id/cat_demo_landing_row_root
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout
+
     save_dir: downloads # 保存的目录，默认为 downloads
     save_file: test.png # 保存的文件名，默认为:时间戳.png
 ```
@@ -399,37 +406,77 @@ recognize_captcha:
 而变量`captcha`记录识别出来的验证码
 ```
 recognize_captcha_element:
-    xpath: //img[@class="pro-img"] # 过滤<img>标签的xpath路径， 与css属性只能二选一
-    #css: img.pro-img # 过滤<img>标签的css selector模式， 与xpath属性只能二选一
+    # 元素查找方式(id/sid/class/xpath) : 查找的值
+    #id: io.material.catalog:id/cat_demo_landing_row_root
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout
+
     #save_dir: downloads # 保存的目录，默认为 downloads
     #save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
 ## 校验器
-只针对 get/post/upload 有发送http请求的动作, 主要是为了校验响应的内容
+主要是为了校验页面或响应的内容, 根据不同场景有2种写法
+```
+1. 针对当前页面, 那么校验器作为普通动作来写
+2. 针对 get/post/upload 有发送http请求的动作, 那么校验器在动作内作为普通属性来写
+```
 
-1. validate_by_xpath: 
-从html的响应中解析 xpath 路径对应的元素的值
+不同校验器适用于不同场景
+| 校验器 | 当前页面场景 | http请求场景 |
+| ------------ | ------------ | ------------ |
+| validate_by_id | Y | N |
+| validate_by_aid | Y | N |
+| validate_by_class | Y | N |
+| validate_by_xpath | Y | Y |
+| validate_by_css | N | Y |
+| validate_by_jsonpath | N | Y |
+
+1. validate_by_id:
+从当前页面中校验 id 对应的元素的值
+```yaml
+validate_by_id:
+  "io.material.catalog:id/cat_demo_text": # 元素的id
+    '=': 'Hello world' # 校验符号或函数: 校验的值
+```
+
+2. validate_by_aid:
+从当前页面中校验 accessibility_id 对应的元素的值
+```yaml
+validate_by_aid:
+  "Timer": # 元素的accessibility_id
+    '>': '2022-07-06 12:00:00' # 校验符号或函数: 校验的值
+```
+
+3. validate_by_class:
+从当前页面中校验类名对应的元素的值
+```yaml
+validate_by_class:
+  "android.widget.TextView": # 元素的类名
+    '=': 'Hello world' # 校验符号或函数: 校验的值
+```
+
+4. validate_by_xpath: 
+从当前页面或html响应中校验 xpath 路径对应的元素的值
 ```yaml
 validate_by_xpath:
-  "//div[@id='goods_id']": # 元素的xpath路径
+  "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout": # 元素的xpath路径
     '>': 0 # 校验符号或函数: 校验的值, 即 id 元素的值>0
-  "//div[@id='goods_title']":
+  "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout":
     contains: 衬衫 # 即 title 元素的值包含'衬衫'
 ```
 
-2. validate_by_class: 
-从html的响应中解析 css selector 模式对应的元素的值
+5. validate_by_css: 
+从html响应中校验类名对应的元素的值
 ```yaml
-validate_by_class:
+validate_by_css:
   '#id': # 元素的css selector 模式
     '>': 0 # 校验符号或函数: 校验的值, 即 id 元素的值>0
   '#goods_title':
     contains: 衬衫 # 即 title 元素的值包含'衬衫'
 ```
 
-3. validate_by_jsonpath: 
-从json响应中解析 多层属性 的值
+6. validate_by_jsonpath: 
+从json响应中校验 多层属性 的值
 ```yaml
 validate_by_jsonpath:
   '$.data.goods_id':
@@ -450,20 +497,59 @@ validate_by_jsonpath:
 9. `regex_match`: 正则匹配
 
 ## 提取器
-只针对 get/post/upload 有发送http请求的动作, 主要是为了从响应中提取变量
+主要是为了从页面或响应中提取变量, 根据不同场景有2种写法
+```
+1. 针对当前页面, 那么提取器作为普通动作来写
+2. 针对 get/post/upload 有发送http请求的动作, 那么提取器在动作内作为普通属性来写
+```
 
-1. extract_by_xpath:
-从html的响应中解析 xpath 路径指定的元素的值
+不同校验器适用于不同场景
+| 校验器 | 页面场景 | http请求场景 |
+| ------------ | ------------ | ------------ |
+| extract_by_id | Y | N |
+| extract_by_aid | Y | N |
+| extract_by_class | Y | N |
+| extract_by_xpath | Y | Y |
+| extract_by_jsonpath | N | Y |
+| extract_by_css | N | Y |
+| extract_by_eval | Y | Y |
+
+1. extract_by_id:
+从当前页面中解析 id 对应的元素的值
+```yaml
+extract_by_id:
+  # 变量名: 元素id
+  goods_id: "io.material.catalog:id/cat_demo_text"
+```
+
+2. extract_by_aid:
+从当前页面中解析 accessibility_id 对应的元素的值
+```yaml
+extract_by_aid:
+  # 变量名: 元素的accessibility_id
+  update_time: "Timer"
+```
+
+3. extract_by_class:
+从当前页面中解析类名对应的元素的值
+```yaml
+extract_by_class:
+  # 变量名: 元素的accessibility_id
+  name: "android.widget.TextView"
+```
+
+4. extract_by_xpath:
+从当前页面或html响应中解析 xpath 路径指定的元素的值
 ```yaml
 extract_by_xpath:
   # 变量名: xpath路径
-  goods_id: //table/tbody/tr[1]/td[1] # 第一行第一列
+  goods_id: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout
 ```
 
-2. extract_by_class:
-从html的响应中解析 css selector 模式指定的元素的值
+5. extract_by_css:
+从html响应中解析 css selector 模式指定的元素的值
 ```yaml
-extract_by_class:
+extract_by_css:
   # 变量名: css selector 模式
   goods_id: table>tbody>tr:nth-child(1)>td:nth-child(1) # 第一行第一列
 ```
