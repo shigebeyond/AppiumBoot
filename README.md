@@ -83,6 +83,7 @@ init_driver:
       appPackage: io.material.catalog
       appActivity: io.material.catalog.main.MainActivity
       automationName: UiAutomator2
+      noReset: true
 ```
 
 2. close_driver: 关闭driver
@@ -161,16 +162,16 @@ swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_up: # 默认移动幅度比例为0.5
 ```
 
-11. swipe_down: 下滑(传比例)
+11. swipe_down: 下滑(传y坐标)
 ```yaml
-swipe_down: 0.55 # 移动幅度比例(占屏幕高度的比例)
-swipe_down: # 默认移动幅度比例为0.5
+swipe_down: 100 # y坐标
+swipe_down: # 默认y坐标为中间
 ```
 
-12. swipe_left: 左滑(传比例)
+12. swipe_left: 左滑(传y坐标)
 ```yaml
-swipe_left: 0.55 # 移动幅度比例(占屏幕宽度的比例)
-swipe_left: # 默认移动幅度比例为0.5
+swipe_left: 100 # y坐标
+swipe_left: # 默认y坐标为中间
 ```
 
 13. swipe_right: 右滑(传比例)
@@ -243,13 +244,15 @@ tap_by:
     duration: 10
 ```
 
-24. click_by: 点击元素; 
+24. click_by/click_by_if_exist: 点击元素; 
 ```yaml
 click_by:
   # 元素查找方式(id/sid/class/xpath) : 查找的值
   #id: io.material.catalog:id/cat_demo_landing_row_root
   xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
 ```
+
+如果点击之前要先判断元素是否存在，则换用 click_by_if_exist
 
 25. screenshot: 整个窗口截图存为png; 
 ```yaml

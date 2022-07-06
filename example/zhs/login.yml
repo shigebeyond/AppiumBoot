@@ -1,0 +1,23 @@
+# 我的页签: 如果没有登录，则会登录选项
+- click_by:
+    id: com.zhs.zhonghuasuanapp:id/tab_my_image
+  sleep: 2
+# 登录
+- once:
+  - moveon_if: boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login') # 满足条件则往下走，否则跳出循环
+    click_by: # 登录弹窗
+      id: com.zhs.zhonghuasuanapp:id/tv_account_login
+    sleep: 2
+    # 登录页
+  - input_by_id:
+      com.zhs.zhonghuasuanapp:id/edit_login_username: ???
+      com.zhs.zhonghuasuanapp:id/edit_login_password: ???
+  - click_by: # 同意协议
+      id: com.zhs.zhonghuasuanapp:id/box_user_agreement
+  - click_by: # 登录
+      id: com.zhs.zhonghuasuanapp:id/login_submit
+    sleep: 4
+  - click_by_if_exist: # 我知道了(登录后的提示)
+      id: com.zhs.zhonghuasuanapp:id/btn_i_know
+  - click_by_if_exist: # 隐藏设置的提示
+      id: com.zhs.zhonghuasuanapp:id/tv_hid_guid

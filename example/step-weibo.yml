@@ -1,0 +1,30 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: com.sina.weibo
+      appActivity: com.sina.weibo.MainTabActivity
+      automationName: UiAutomator2
+      noReset: true
+  sleep: 5
+  # 循环3次
+  for(3) :
+    # 每次迭代要执行的子步骤
+    - swipe_up:
+      sleep: 2
+  # 无限循环，直到遇到跳出动作
+  # 有变量for_i记录是第几次迭代（从1开始）
+  for:
+    # 每次迭代要执行的子步骤
+    - break_if: for_i>2 # 满足条件则跳出循环
+      swipe_up:
+      sleep: 2
+  # 只执行一次，等价于 for(1)
+  once:
+    # 每次迭代要执行的子步骤
+    - moveon_if: for_i<=2 # 满足条件则往下走，否则跳出循环
+      swipe_up:
+      sleep: 2

@@ -10,8 +10,8 @@ desired_caps = {
   "deviceName": "f978cc97",
   "appPackage": "com.sina.weibo",
   "appActivity": "com.sina.weibo.MainTabActivity",
-  "automationName": "UiAutomator2"
-
+  "automationName": "UiAutomator2",
+  "noReset": "True"
 }
 driver=webdriver.Remote(server,desired_caps)
 time.sleep(10)

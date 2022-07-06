@@ -8,6 +8,7 @@
       appPackage: io.material.catalog
       appActivity: io.material.catalog.main.MainActivity
       automationName: UiAutomator2
+      noReset: true
 - include: material/comp1.yml  # bottom app bar
 - include: material/back.yml
 - include: material/comp2.yml  # bottom navigation

@@ -1,0 +1,35 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: com.zhs.zhonghuasuanapp
+      appActivity: com.zhs.activity.StartActivity
+      automationName: UiAutomator2
+      noReset: true
+  sleep: 5
+  # 4个页签
+#- click_by:
+#    id: com.zhs.zhonghuasuanapp:id/tab_home_image
+#  sleep: 1
+#- click_by:
+#    id: com.zhs.zhonghuasuanapp:id/tab_category_image
+#  sleep: 1
+#- click_by:
+#    id: com.zhs.zhonghuasuanapp:id/tab_new_image
+#  sleep: 1
+#- click_by:
+#    id: com.zhs.zhonghuasuanapp:id/tab_order_image
+#  sleep: 1
+#- click_by:
+#    id: com.zhs.zhonghuasuanapp:id/tab_my_image
+#  sleep: 1
+  swipe_up:
+- include: zhs/login.yml # 登录
+  sleep: 2
+- include: zhs/apply.yml # 申请
+  sleep: 2
+- include: zhs/order.yml # 订单
+- sleep: 20
