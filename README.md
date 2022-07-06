@@ -119,35 +119,35 @@ random_int(n): 随机数字，参数n是数字个数
 incr(key): 自增值，从1开始，参数key表示不同的自增值，不同key会独立自增
 ```
 
-9. input_by_id: 填充 id 指定的输入框; 
+5. input_by_id: 填充 id 指定的输入框; 
 ```yaml
 input_by_id:
   # 输入框id: 填充的值(支持写变量)
   'io.material.catalog:id/cat_demo_input': '18877310999'
 ```
 
-9. input_by_aid: 填充 accessibility_id 指定的输入框; 
+6. input_by_aid: 填充 accessibility_id 指定的输入框; 
 ```yaml
 input_by_aid:
   # 输入框accessibility_id: 填充的值(支持写变量)
   'Input name': '18877310999'
 ```
 
-9. input_by_class: 填充 指定类名的输入框; 
+7. input_by_class: 填充 指定类名的输入框; 
 ```yaml
 input_by_class:
   # 输入框类名: 填充的值(支持写变量)
   'android.widget.EditText': '18877310999'
 ```
 
-10. input_by_xpath: 填充 xpath 指定的输入框; 
+8. input_by_xpath: 填充 xpath 指定的输入框; 
 ```yaml
 input_by_xpath:
   # 输入框xpath路径: 填充的值(支持写变量)
   '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.EditText': aaa
 ```
 
-1. swipe: 屏幕横扫(传坐标)
+9. swipe: 屏幕横扫(传坐标)
 ```yaml
 swipe: 
     from: 100,100 # 起点坐标
@@ -155,46 +155,46 @@ swipe:
     duration: 2 # 耗时秒数, 可省
 ```
 
-1. swipe_up: 上滑(传比例)
+10. swipe_up: 上滑(传比例)
 ```yaml
 swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_up: # 默认移动幅度比例为0.5
 ```
 
-1. swipe_down: 下滑(传比例)
+11. swipe_down: 下滑(传比例)
 ```yaml
 swipe_down: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_down: # 默认移动幅度比例为0.5
 ```
 
-1. swipe_left: 左滑(传比例)
+12. swipe_left: 左滑(传比例)
 ```yaml
 swipe_left: 0.55 # 移动幅度比例(占屏幕宽度的比例)
 swipe_left: # 默认移动幅度比例为0.5
 ```
 
-1. swipe_right: 右滑(传比例)
+13. swipe_right: 右滑(传比例)
 ```yaml
 swipe_right: 0.55 # 移动幅度比例(占屏幕宽度的比例)
 swipe_right: # 默认移动幅度比例为0.5
 ```
 
-1. swipe_vertical: 垂直方向(上下)滑动(传比例)
+14. swipe_vertical: 垂直方向(上下)滑动(传比例)
 ```yaml
 swipe_vertical: 0.2,0.7 # y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
 ```
 
-1. swipe_horizontal: 水平方向(左右)滑动(传比例)
+15. swipe_horizontal: 水平方向(左右)滑动(传比例)
 ```yaml
 swipe_horizontal: 0.2,0.7 # x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
 ```
 
-1. move_track: 移动轨迹(传坐标序列)
+16. move_track: 移动轨迹(传坐标序列)
 ```yaml
 move_track: '800,1600;100,1600;100,600;800,600;360,600;360,1100' # 坐标序列，坐标之间使用;分割，如x1,y1;x2,y2
 ```
 
-1. drag_and_drop_by: 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
+17. drag_and_drop_by: 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
 ```yaml
 drag_and_drop_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -202,7 +202,7 @@ drag_and_drop_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-1. scroll_by: 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
+18. scroll_by: 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
 ```yaml
 scroll_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -210,7 +210,7 @@ scroll_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-1. move_by: 移动(传元素): 从一个元素移动到另一元素，无惯性
+19. move_by: 移动(传元素): 从一个元素移动到另一元素，无惯性
 ```yaml
 move_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -218,22 +218,22 @@ move_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-1. zoom_in: 放大
+20. zoom_in: 放大
 ```yaml
 zoom_in: 
 ```
 
-1. zoom_out: 缩小
+21. zoom_out: 缩小
 ```yaml
 zoom_out: 
 ```
 
-1. tap: 敲击屏幕(传坐标)
+22. tap: 敲击屏幕(传坐标)
 ```yaml
 tap: 200,200
 ```
 
-1. tap_by: 敲击元素
+23. tap_by: 敲击元素
 ```yaml
 tap_by:
     # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -243,7 +243,7 @@ tap_by:
     duration: 10
 ```
 
-16. click_by: 点击元素; 
+24. click_by: 点击元素; 
 ```yaml
 click_by:
   # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -251,14 +251,14 @@ click_by:
   xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout # 按钮的xpath路径
 ```
 
-26. screenshot: 整个窗口截图存为png; 
+25. screenshot: 整个窗口截图存为png; 
 ```yaml
 screenshot:
     save_dir: downloads # 保存的目录，默认为 downloads
     save_file: test.png # 保存的文件名，默认为:时间戳.png
 ```
 
-27. screenshot_element_by: 对某个标签截图存为png; 
+26. screenshot_element_by: 对某个标签截图存为png; 
 ```yaml
 screenshot_element_by
     # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -269,27 +269,27 @@ screenshot_element_by
     save_file: test.png # 保存的文件名，默认为:时间戳.png
 ```
 
-28. execute_js: 执行js; 
+27. execute_js: 执行js; 
 ```yaml
 execute_js: alert('hello world')
 ```
 
-32. back: 返回键; 
+28. back: 返回键; 
 ```yaml
 back: 
 ```
 
-32. keyevent: 模拟系统键; 
+29. keyevent: 模拟系统键; 
 ```yaml
 keyevent: '4'
 ```
 
-32. open_notifications: 打开手机的通知栏; 
+30. open_notifications: 打开手机的通知栏; 
 ```yaml
 open_notifications: 
 ```
 
-33. for: 循环; 
+31. for: 循环; 
 for动作下包含一系列子步骤，表示循环执行这系列子步骤；变量`for_i`记录是第几次迭代（从1开始）
 ```yaml
 # 循环3次
@@ -307,7 +307,7 @@ for:
     sleep: 2
 ```
 
-34. once: 只执行一次，等价于 `for(1)`; 
+32. once: 只执行一次，等价于 `for(1)`; 
 once 结合 moveon_if，可以模拟 python 的 `if` 语法效果
 ```yaml
 once:
@@ -317,24 +317,24 @@ once:
     sleep: 2
 ```
 
-35. break_if: 满足条件则跳出循环; 
+33. break_if: 满足条件则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 break_if: for_i>2 # 条件表达式，python语法
 ```
 
-36. moveon_if: 满足条件则往下走，否则跳出循环; 
+34. moveon_if: 满足条件则往下走，否则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 moveon_if: for_i<=2 # 条件表达式，python语法
 ```
 
-37. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
+35. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
 ```yaml
 include: part-common.yml
 ```
 
-38. set_vars: 设置变量; 
+36. set_vars: 设置变量; 
 ```yaml
 set_vars:
   name: shi
@@ -342,17 +342,17 @@ set_vars:
   birthday: 5-27
 ```
 
-39. print_vars: 打印所有变量; 
+37. print_vars: 打印所有变量; 
 ```yaml
 print_vars:
 ```
 
-42. set_base_url: 设置基础url
+38. set_base_url: 设置基础url
 ```yaml
 set_base_url: https://www.taobao.com/
 ```
 
-4. get: 发get请求, 但无跳转; 
+39. get: 发get请求, 但无跳转; 
 ```yaml
 get:
     url: $dyn_data_url # url,支持写变量
@@ -360,7 +360,7 @@ get:
       dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
 ```
 
-5. post: 发post请求, 但无跳转; 
+40. post: 发post请求, 但无跳转; 
 ```yaml
 post:
     url: http://admin.jym1.com/store/add_store # url,支持写变量
@@ -371,7 +371,7 @@ post:
       store_logo_url: '$img'
 ```
 
-6. upload: 上传文件; 
+41. upload: 上传文件; 
 ```yaml
 upload: # 上传文件/图片
     url: http://admin.jym1.com/upload/common_upload_img/store_img
@@ -382,7 +382,7 @@ upload: # 上传文件/图片
       img: $.data.url
 ```
 
-11. download: 下载文件; 
+42. download: 下载文件; 
 变量`download_file`记录最新下载的单个文件
 ```yaml
 download:
@@ -391,7 +391,7 @@ download:
     save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-14. recognize_captcha: 识别验证码; 
+43. recognize_captcha: 识别验证码; 
 参数同 `download` 动作， 因为内部就是调用 `download`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -401,7 +401,7 @@ recognize_captcha:
     # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-15. recognize_captcha_element: 识别验证码标签中的验证码; 
+44. recognize_captcha_element: 识别验证码标签中的验证码; 
 参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -554,7 +554,7 @@ extract_by_css:
   goods_id: table>tbody>tr:nth-child(1)>td:nth-child(1) # 第一行第一列
 ```
 
-3. extract_by_jsonpath:
+6. extract_by_jsonpath:
 从json响应中解析 多层属性 的值
 ```yaml
 extract_by_jsonpath:
@@ -562,7 +562,7 @@ extract_by_jsonpath:
   img: $.data.url
 ```
 
-4. extract_by_eval:
+7. extract_by_eval:
 使用 `eval(表达式)` 执行表达式, 并将执行结果记录到变量中
 ```yaml
 extract_by_eval:
