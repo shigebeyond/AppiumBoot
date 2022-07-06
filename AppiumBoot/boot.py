@@ -405,8 +405,8 @@ class Boot(object):
         x2, y2 = config['to'].split(",", 1) # 终点位置
         duration = 0
         if 'duration' in config:
-            duration = float(config['duration'])
-        self.driver.swipe(x1, y1, x2, y2, duration*1000)
+            duration = float(config['duration']) * 1000
+        self.driver.swipe(x1, y1, x2, y2, duration)
 
     # 上滑(传比例)
     # :param 移动幅度比例
@@ -453,8 +453,8 @@ class Boot(object):
         y1_ratio, y2_ratio = y_range_ratios.split(",", 1) # y轴起点/终点位置在屏幕的比例
         y1 = int(h * float(y1_ratio))
         y2 = int(h * float(y2_ratio))
-        duration = 0.1
-        self.driver.swipe(xm, y1, xm, y2, duration*1000)
+        duration = 0.1 * 1000
+        self.driver.swipe(xm, y1, xm, y2, duration)
 
     # 水平方向(左右)滑动
     # :param x_range_ratios x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
@@ -471,8 +471,8 @@ class Boot(object):
         x1_ratio, x2_ratio = x_range_ratios.split(",", 1)  # x轴起点/终点位置在屏幕的比例
         x1 = int(w * float(x1_ratio))
         x2 = int(w * float(x2_ratio))
-        duration = 0.1
-        self.driver.swipe(x1, ym, x2, ym, duration*1000)
+        duration = 0.1 * 1000
+        self.driver.swipe(x1, ym, x2, ym, duration)
 
     # 移动轨迹(传坐标序列)
     # :param positions 坐标序列 如x1,y1;x2,y2
@@ -519,8 +519,8 @@ class Boot(object):
         to = self.find_by(by, config['to']) # 终点元素
         duration = None
         if 'duration' in config:
-            duration = float(config['duration'])
-        self.driver.scroll(_from, to, duration*1000)
+            duration = float(config['duration']) * 1000
+        self.driver.scroll(_from, to, duration)
 
     # 移动(传元素): 从一个元素移动到另一元素，无惯性
     # :param config {by, from, to, duration}
@@ -597,13 +597,13 @@ class Boot(object):
         if isinstance(config, dict):
             positions = config['positions']
             if 'duration' in config:
-                duration = float(config['duration'])
+                duration = float(config['duration']) * 1000
         else:
             positions = config
 
         # 坐标序列(如x1,y1;x2,y2) 转 List[Tuple[int, int]]
         positions = list(map(lambda pos: tuple(pos.split(",", 1)), positions.split(";")))
-        self.driver.tap(positions, duration*1000)
+        self.driver.tap(positions, duration)
 
     # 敲击屏幕
     # :param config {id, aid, class, xpath}
@@ -620,9 +620,9 @@ class Boot(object):
 
         duration = None
         if 'duration' in config:
-            duration = float(config['duration'])
+            duration = float(config['duration']) * 1000
 
-        self.driver.tap([(x,y)], duration*1000)
+        self.driver.tap([(x,y)], duration)
 
     # 点击按钮
     # :param config {id, aid, class, xpath}
