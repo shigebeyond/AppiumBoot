@@ -99,8 +99,13 @@ def do_replace_var(txt, to_str = True):
         return r # 原样返回, 可能是int/dict之类的, 主要是使用post动作的data是dict变量
 
     # 1 整体匹配: 整个是纯变量表达式
-    mat = re.match(r'\$([\w\d_]+)', txt)
-    if mat:
+    mat1 = re.match(r'\$([\w\d_]+)', txt)
+    mat2 = re.match(r'\$\{([\w\d_\.\(\)]+)\}', txt)
+    if mat1 or mat2:
+        if mat1:
+            mat = mat1
+        else:
+            mat = mat2
         return replace(mat, to_str)
 
     # 2 局部匹配: 由 普通字符串 + 变量表达式 组成

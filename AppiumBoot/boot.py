@@ -35,15 +35,6 @@ def get_text_or_content(self):
     return self.get_attribute("content-desc")
 WebElement.get_text_or_content = get_text_or_content
 
-# 扩展driver方法
-def is_element_exist(self, by):
-    try:
-        self.find_element(by)
-        return True
-    except:
-        return False
-WebDriver.is_element_exist = is_element_exist
-
 # 跳出循环的异常
 class BreakException(Exception):
     def __init__(self, condition):
@@ -91,6 +82,7 @@ class Boot(object):
             'tap': self.tap,
             'tap_by': self.tap_by,
             'click_by': self.click_by,
+            'click_by_if_exist': self.click_by_if_exist,
             'screenshot': self.screenshot,
             'screenshot_element_by': self.screenshot_element_by,
             'execute_js': self.execute_js,
@@ -124,6 +116,7 @@ class Boot(object):
             'extract_by_class': self.extract_by_class,
             'extract_by_eval': self.extract_by_eval,
         }
+        set_var('boot', self)
 
     '''
     执行入口
@@ -299,7 +292,8 @@ class Boot(object):
 
     # 睡眠
     def sleep(self, seconds):
-        time.sleep(seconds)
+        seconds = replace_var(seconds)  # 替换变量
+        time.sleep(int(seconds))
 
     # 打印
     def print(self, msg):
@@ -347,7 +341,7 @@ class Boot(object):
 
             # 找到输入框
             try:
-                ele = self._find_by(type, name)
+                ele = self.find_by(type, name)
             except Exception as ex:  # 找不到元素
                 print_exception(f"找不到输入元素{name}")
                 print_exception(str(ex))
@@ -357,11 +351,11 @@ class Boot(object):
             ele.send_keys(value) # 后输入
 
     # 根据指定类型，查找元素
-    def _find_by(self, type, path):
+    def find_by(self, type, path):
         return self.driver.find_element(type2by(type), path)
 
     # 根据任一类型，查找元素
-    def _find_by_any(self, config):
+    def find_by_any(self, config):
         types = ['id', 'aid', 'class', 'xpath']
         for type in types:
             if type in config:
@@ -372,13 +366,30 @@ class Boot(object):
         raise Exception(f"没有查找类型: {config}")
 
     # 根据任一类型，查找元素
-    def _find_all_by_any(self, config):
+    def find_all_by_any(self, config):
         types = ['id', 'aid', 'class', 'xpath']
         for type in types:
             if type in config:
                 path = config[type]
                 return self.driver.find_elements(type2by(type), path)
         raise Exception(f"没有查找类型: {config}")
+
+    # 根据指定类型，检查元素是否存在
+    def exist_by(self, type, path):
+        try:
+            self.find_by(type, path)
+            return True
+        except:
+            return False
+
+    # 根据指定类型，查找元素的文本
+    def get_text_by(self, type, path):
+        ele = self.find_by(type, path)
+        return ele.get_text_or_content()
+
+    # 根据指定类型，检查元素的文本是否等于
+    def check_text_by(self, type, path, txt):
+        return self.get_text_by(type, path) == txt
 
     # 屏幕滑动(传坐标)
     # :param config {from, to}
@@ -394,10 +405,10 @@ class Boot(object):
         x2, y2 = config['to'].split(",", 1) # 终点位置
         duration = 0
         if 'duration' in config:
-            duration = int(config['duration'])
+            duration = float(config['duration'])
         self.driver.swipe(x1, y1, x2, y2, duration*1000)
 
-    # 上滑
+    # 上滑(传比例)
     # :param 移动幅度比例
     def swipe_up(self, move_ratio):
         if move_ratio == None:
@@ -407,7 +418,8 @@ class Boot(object):
         # self.swipe_vertical(f'0.75,0.25')
         self.swipe_vertical(f'{start},{end}')
 
-    # 下滑
+    # 下滑(传比例)
+    # :param 移动幅度比例
     def swipe_down(self, move_ratio):
         if move_ratio == None:
             move_ratio = 0.5
@@ -416,44 +428,50 @@ class Boot(object):
         # self.swipe_vertical('0.25,0.75')
         self.swipe_vertical(f'{start},{end}')
 
-    # 左滑
-    def swipe_left(self, _):
-        self.swipe_horizontal('0.75,0.25')
+    # 左滑(传y坐标)
+    # :param y y坐标，固定不变，默认为中间
+    def swipe_left(self, y = None):
+        self.swipe_horizontal('0.75,0.25', y)
 
-    # 右滑
-    def swipe_right(self, _):
-        self.swipe_horizontal('0.25,0.75')
+    # 右滑(传y坐标)
+    # :param y y坐标，固定不变，默认为中间
+    def swipe_right(self, y = None):
+        self.swipe_horizontal('0.25,0.75', y)
 
     # 垂直方向(上下)滑动
     # :param y_range_ratios y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
-    def swipe_vertical(self, y_range_ratios):
+    # :param xm x坐标，固定不变，默认为中间
+    def swipe_vertical(self, y_range_ratios, xm = None):
         # 获取屏幕的宽高
         size = self.driver.get_window_size()
         w = size["width"]
         h = size["height"]
         # x不变：水平居中
-        xm = int(w * 0.5)
+        if xm == None:
+            xm = int(w * 0.5)
         # y:按比例计算坐标
         y1_ratio, y2_ratio = y_range_ratios.split(",", 1) # y轴起点/终点位置在屏幕的比例
         y1 = int(h * float(y1_ratio))
         y2 = int(h * float(y2_ratio))
-        duration = 1000
+        duration = 0.1
         self.driver.swipe(xm, y1, xm, y2, duration*1000)
 
     # 水平方向(左右)滑动
     # :param x_range_ratios x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
-    def swipe_horizontal(self, x_range_ratios):
+    # :param ym y坐标，固定不变，默认为中间
+    def swipe_horizontal(self, x_range_ratios, ym = None):
         # 获取屏幕的宽高
         size = self.driver.get_window_size()
         w = size["width"]
         h = size["height"]
         # y不变：水平居中
-        ym = int(h * 0.5)
+        if ym == None:
+            ym = int(h * 0.5)
         # x:按比例计算坐标
         x1_ratio, x2_ratio = x_range_ratios.split(",", 1)  # x轴起点/终点位置在屏幕的比例
         x1 = int(w * float(x1_ratio))
         x2 = int(w * float(x2_ratio))
-        duration = 1000
+        duration = 0.1
         self.driver.swipe(x1, ym, x2, ym, duration*1000)
 
     # 移动轨迹(传坐标序列)
@@ -489,30 +507,30 @@ class Boot(object):
     # :param config {by, from, to}
     def drag_and_drop_by(self, config):
         by = config['by']
-        _from = self._find_by(by, config['from']) # 起点元素
-        to = self._find_by(by, config['to']) # 终点元素
+        _from = self.find_by(by, config['from']) # 起点元素
+        to = self.find_by(by, config['to']) # 终点元素
         self.driver.drag_and_drop(_from, to)
 
     # 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
     # :param config {by, from, to, duration}
     def scroll_by(self, config):
         by = config['by']
-        _from = self._find_by(by, config['from']) # 起点元素
-        to = self._find_by(by, config['to']) # 终点元素
+        _from = self.find_by(by, config['from']) # 起点元素
+        to = self.find_by(by, config['to']) # 终点元素
         duration = None
         if 'duration' in config:
-            duration = int(config['duration'])
+            duration = float(config['duration'])
         self.driver.scroll(_from, to, duration*1000)
 
     # 移动(传元素): 从一个元素移动到另一元素，无惯性
     # :param config {by, from, to, duration}
     def move_by(self, config):
         by = config['by']
-        _from = self._find_by(by, config['from']).location # 起点元素的位置
-        to = self._find_by(by, config['to']).location # 终点元素的位置
+        _from = self.find_by(by, config['from']).location # 起点元素的位置
+        to = self.find_by(by, config['to']).location # 终点元素的位置
         duration = None
         if 'duration' in config:
-            duration = int(config['duration'])
+            duration = float(config['duration'])
 
         actions = ActionChains(self.driver)
         actions.w3c_actions.devices = []
@@ -579,7 +597,7 @@ class Boot(object):
         if isinstance(config, dict):
             positions = config['positions']
             if 'duration' in config:
-                duration = int(config['duration'])
+                duration = float(config['duration'])
         else:
             positions = config
 
@@ -590,7 +608,7 @@ class Boot(object):
     # 敲击屏幕
     # :param config {id, aid, class, xpath}
     def tap_by(self, config):
-        ele = self._find_by_any(config)
+        ele = self.find_by_any(config)
         # TouchAction过时
         #TouchAction(self.driver).tap(ele).perform()
 
@@ -602,15 +620,25 @@ class Boot(object):
 
         duration = None
         if 'duration' in config:
-            duration = int(config['duration'])
+            duration = float(config['duration'])
 
         self.driver.tap([(x,y)], duration*1000)
 
     # 点击按钮
     # :param config {id, aid, class, xpath}
     def click_by(self, config):
-        ele = self._find_by_any(config)
+        ele = self.find_by_any(config)
         ele.click()
+
+    # 如果按钮存在，则点击
+    # :param config {id, aid, class, xpath}
+    def click_by_if_exist(self, config):
+        try:
+            ele = self.find_by_any(config)
+        except:
+            ele = None
+        if ele != None:
+            ele.click()
 
     # 整个窗口截图存为png
     # :param config {save_dir, save_file}
@@ -623,7 +651,7 @@ class Boot(object):
     # 对某个标签截图存为png
     # :param config {id, class, xpath, save_dir, save_file}
     def screenshot_element_by(self, config):
-        ele = self._find_by_any(config)
+        ele = self.find_by_any(config)
         # 文件名
         default_file = str(time.time()).split(".")[0] + ".png" # 默认文件名
         save_file = self._prepare_save_file(config, default_file)
