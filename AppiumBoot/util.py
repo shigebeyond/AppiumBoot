@@ -63,9 +63,11 @@ def set_var(name, val):
 def get_var(name):
     return vars[name]
 
-# 替换变量： 将 $变量名 替换为 变量值
-# :param txt 兼容基础类型+字符串+列表+字典等类型
-def replace_var(txt):
+# 替换变量： 将 $变量名 或 ${变量表达式} 替换为 变量值
+# :param txt 兼容基础类型+字符串+列表+字典等类型, 如果是字符串, 则是带变量的表达式
+# :param to_str 是否转为字符串, 否则原样返回, 可能是int/dict之类的, 主要是使用post动作的data是dict变量; 只针对整体匹配的情况
+# :return
+def replace_var(txt, to_str = True):
     # 如果是基础类型，直接返回
     if isinstance(txt, (int, float, complex, bool)):
         return txt
@@ -81,29 +83,45 @@ def replace_var(txt):
         return txt
 
     # 字符串：直接替换
-    return do_replace_var(txt)
+    return do_replace_var(txt, to_str)
 
 # 真正的替换变量: 将 $变量名 替换为 变量值
 # :param txt 只能接收字符串
-def do_replace_var(txt):
+# :param txt 是否转为字符串, 否则原样返回, 可能是int/dict之类的, 主要是使用post动作的data是dict变量; 只针对整体匹配的情况
+def do_replace_var(txt, to_str = True):
     if not isinstance(txt, str):
         raise Exception("变量表达式非字符串")
 
     # re正则匹配替换字符串 https://cloud.tencent.com/developer/article/1774589
-    def replace(match) -> str:
-        name = match.group(1)
-        print(f"name:{name}")
-        # 单独处理
-        if '(' in name:  # 函数调用, 如 random_str(1)
-            r = parse_and_call_func(name)
+    def replace(match, to_str = True) -> str:
+        r = analyze_var_expr(match.group(1))
+        if to_str: # 转字符串
             return str(r)
-        if '.' in name:  # 有多级属性, 如 data.msg
-            return jsonpath(vars, '$.' + name)[0]
-        return str(vars[name])
+        return r # 原样返回, 可能是int/dict之类的, 主要是使用post动作的data是dict变量
 
+    # 1 整体匹配: 整个是纯变量表达式
+    mat = re.match(r'\$([\w\d_]+)', txt)
+    if mat:
+        return replace(mat, to_str)
+
+    # 2 局部匹配: 由 普通字符串 + 变量表达式 组成
     txt = re.sub(r'\$([\w\d_]+)', replace, txt)  # 处理变量 $msg
     txt = re.sub(r'\$\{([\w\d_\.\(\)]+)\}', replace, txt)  # 处理变量 ${data.msg} 或 函数调用 ${random_str(1)}
     return txt
+
+# 解析变量表达式
+# :param expr 变量表达式
+# :return 表达式的值
+def analyze_var_expr(expr):
+    # 单独处理
+    if '(' in expr:  # 函数调用, 如 random_str(1)
+        r = parse_and_call_func(expr)
+        return r
+
+    if '.' in expr:  # 有多级属性, 如 data.msg
+        return jsonpath(vars, '$.' + expr)[0]
+
+    return vars[expr]
 
 
 # 替换变量时用到的内部函数
