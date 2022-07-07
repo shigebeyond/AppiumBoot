@@ -1,0 +1,25 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: com.tencent.mm
+      appActivity: com.tencent.mm.ui.LauncherUI
+      automationName: UiAutomator2
+      noReset: true
+  sleep: 5
+- click_by: # 搜索
+    id: com.tencent.mm:id/he6
+  sleep: 2
+#- click_by_if_exist: # 权限
+#    id: com.lbe.security.miui:id/permission_allow_foreground_only_button
+#  sleep: 2
+- input_by_id:
+    com.tencent.mm:id/bxz: 聚茵美医疗
+  click_by: # 搜索
+    id: com.tencent.mm:id/jkc
+  sleep: 2
+- tap: 247,513
+- sleep: 20

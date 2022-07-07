@@ -1,0 +1,22 @@
+# 最新活动页签: 活动列表
+- click_by:
+    id: com.shikee.shikeeapp:id/tab_news_image
+  sleep: 4
+- swipe_up:
+  sleep: 2
+- swipe_down:
+- swipe_down:
+  sleep: 2
+# 点击第一个活动: 进入活动详情页
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]
+  sleep: 2
+- swipe_up:
+  sleep: 2
+- click_by: # 点击"申请试用"按钮
+    id: com.shikee.shikeeapp:id/button_pageinfo
+  sleep: 4
+- click_by_if_exist: # 取消实名认证
+    id: com.shikee.shikeeapp:id/button_cancel_mydialog
+  sleep: 1
+- back:

@@ -1,0 +1,35 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+      appPackage: com.shikee.shikeeapp
+      appActivity: com.shikee.ui.activity.SplashActivity
+      automationName: UiAutomator2
+      noReset: true
+  sleep: 5
+  # 4个页签
+#- click_by:
+#    id: com.shikee.shikeeapp:id/tab_index_image
+#  sleep: 1
+#- click_by:
+#    id: com.shikee.shikeeapp:id/tab_news_image
+#  sleep: 1
+#- click_by:
+#    id: com.shikee.shikeeapp:id/tab_exchange_image
+#  sleep: 1
+#- click_by:
+#    id: com.shikee.shikeeapp:id/tab_participate_image
+#  sleep: 1
+#- click_by:
+#    id: com.shikee.shikeeapp:id/tab_myhome_image
+#  sleep: 1
+  swipe_up:
+- include: sk/login.yml # 登录
+  sleep: 2
+- include: sk/apply.yml # 申请
+  sleep: 2
+- include: sk/order.yml # 订单
+- sleep: 20

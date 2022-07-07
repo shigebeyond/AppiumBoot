@@ -1,0 +1,19 @@
+# 我的页签: 如果没有登录，则会登录选项
+- click_by:
+    id: com.shikee.shikeeapp:id/tab_myhome_image
+  sleep: 2
+# 登录
+- once:
+  # - moveon_if: boot.exist_by('id', 'com.shikee.shikeeapp:id/button1') # 满足条件则往下走，否则跳出循环
+  - moveon_if_exist_by: # 满足条件则往下走，否则跳出循环
+      id: com.shikee.shikeeapp:id/button1
+    sleep: 2
+    # 登录页
+  - input_by_id:
+      'com.shikee.shikeeapp:id/edt_login_username': ???
+      'com.shikee.shikeeapp:id/edt_login_password': ???
+  - click_by: # 登录
+      id: com.shikee.shikeeapp:id/button1
+    sleep: 4
+  - click_by_if_exist: # 取消实名认证的提示
+      id: com.shikee.shikeeapp:id/button_cancel_mydialog

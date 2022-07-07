@@ -26,6 +26,7 @@ from appium.webdriver.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 # 扩展WebElement方法
 def get_text_or_content(self):
@@ -87,12 +88,15 @@ class Boot(object):
             'screenshot_element_by': self.screenshot_element_by,
             'execute_js': self.execute_js,
             'back': self.back,
+            'enter': self.enter,
             'keyevent': self.keyevent,
             'open_notifications': self.open_notifications,
             'for': self.do_for,
             'once': self.once,
             'break_if': self.break_if,
             'moveon_if': self.moveon_if,
+            'moveon_if_exist_by': self.moveon_if_exist_by,
+            'break_if_not_exist_by': self.break_if_not_exist_by,
             'include': self.include,
             'set_vars': self.set_vars,
             'print_vars': self.print_vars,
@@ -276,6 +280,15 @@ class Boot(object):
         if bool(val):
             raise BreakException(expr)
 
+    # 检查并继续for循环
+    def moveon_if_exist_by(self, config):
+        self.break_if_not_exist_by(config)
+
+    # 跳出for循环
+    def break_if_not_exist_by(self, config):
+        if not self.exist_by_any(config):
+            raise BreakException(config)
+
     # 加载并执行其他步骤文件
     def include(self, step_file):
         self.run_1file(step_file, True)
@@ -379,7 +392,15 @@ class Boot(object):
         try:
             self.find_by(type, path)
             return True
-        except:
+        except NoSuchElementException:
+            return False
+
+    # 根据任一类型，检查元素是否存在
+    def exist_by_any(self, config):
+        try:
+            self.find_by_any(config)
+            return True
+        except NoSuchElementException:
             return False
 
     # 根据指定类型，查找元素的文本
@@ -663,7 +684,11 @@ class Boot(object):
 
     # 返回键
     def back(self, _):
-        self.keyevent('4')
+        self.keyevent(4)
+
+    # 回车
+    def enter(self, _):
+        self.keyevent(66)
 
     # 模拟系统键
     def keyevent(self, code):
