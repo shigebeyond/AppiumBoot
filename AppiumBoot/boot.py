@@ -136,6 +136,7 @@ class Boot(object):
             'extract_by_eval': self.extract_by_eval,
         }
         set_var('boot', self)
+        self.recording = False # 是否在录屏
 
     '''
     执行入口
@@ -210,8 +211,28 @@ class Boot(object):
     def run_steps(self, steps):
         # 逐个步骤调用多个动作
         for step in steps:
-            for action, param in step.items():
-                self.run_action(action, param)
+            actions = step.items()
+            try:
+                # 逐个调用动作
+                for i in range(0, len(actions)):
+                    action, param = actions[i]
+                    self.run_action(action, param)
+            except Exception as ex:
+                # 当发生异常时,如果正在录屏,则结束录屏
+                if self.recording:
+                    self.try_stop_recording_screen(action, i+1)
+                raise ex
+
+    # 调用后续的第一个停止录屏动作
+    def try_stop_recording_screen(self, actions, start):
+        # 找到并调用后续的第一个停止录屏动作
+        for i in range(start, len(actions)):
+            action, param = actions[i]
+            if action == 'stop_recording_screen':
+                # 调用动作
+                # self.run_action(action, param)
+                self.stop_recording_screen(param)
+                break
 
     '''
     执行单个动作：就是调用动作名对应的函数
@@ -815,10 +836,12 @@ class Boot(object):
 
     # 开始录屏
     def start_recording_screen(self, _):
+        self.recording = True
         self.driver.start_recording_screen()
 
     # 停止录屏
     def stop_recording_screen(self, path):
+        self.recording = False
         # 1 有remotePath是上传的地址，只支持 http/https 与 ftp/ftps 协议
         #self.driver.stop_recording_screen(remotePath = 'http://xxx/yyy.mp4', user = '', password='', method='post')
 
