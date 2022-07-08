@@ -9,14 +9,40 @@ import random
 from jsonpath import jsonpath
 from selenium.webdriver.common.by import By
 
+# 写文本文件
+def write_file(path, content, append = False):
+    if append:
+        mode = 'a'
+    else:
+        mode = 'w'
+    with open(path, mode, encoding="utf-8") as file:
+        file.write(content)
+
+# 读文本文件
+def read_file(path):
+    with open(path, 'r', encoding="utf-8") as file:
+        return file.read()
+
+# 写二进制文件
+def write_byte_file(path, content, append = False):
+    if append:
+        mode = 'ab'
+    else:
+        mode = 'wb'
+    with open(path, mode) as file:
+        file.write(content)
+
+# 读二进制文件
+def read_byte_file(path):
+    with open(path, 'rb') as file:
+        return file.read()
+
 # 读yaml配置
 # :param yaml_file (步骤配置的)yaml文件
 def read_yaml(yaml_file):
     if not os.path.exists(yaml_file):
         raise Exception(f"没找到步骤配置文件: {yaml_file}")
-    file = open(yaml_file, 'r', encoding="utf-8")
-    txt = file.read()
-    file.close()
+    txt = read_file(yaml_file)
     return yaml.load(txt, Loader=yaml.FullLoader)
 
 # 输出异常

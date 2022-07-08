@@ -148,7 +148,12 @@ input_by_xpath:
   '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.EditText': aaa
 ```
 
-9. swipe: 屏幕横扫(传坐标)
+9. hide_keyboard: 隐藏键盘
+```yaml
+hide_keyboard:
+```
+
+10. swipe: 屏幕横扫(传坐标)
 ```yaml
 swipe: 
     from: 100,100 # 起点坐标
@@ -156,46 +161,46 @@ swipe:
     duration: 2 # 耗时秒数, 可省
 ```
 
-10. swipe_up: 上滑(传比例)
+11. swipe_up: 上滑(传比例)
 ```yaml
 swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_up: # 默认移动幅度比例为0.5
 ```
 
-11. swipe_down: 下滑(传y坐标)
+12. swipe_down: 下滑(传y坐标)
 ```yaml
 swipe_down: 100 # y坐标
 swipe_down: # 默认y坐标为中间
 ```
 
-12. swipe_left: 左滑(传y坐标)
+13. swipe_left: 左滑(传y坐标)
 ```yaml
 swipe_left: 100 # y坐标
 swipe_left: # 默认y坐标为中间
 ```
 
-13. swipe_right: 右滑(传比例)
+14. swipe_right: 右滑(传比例)
 ```yaml
 swipe_right: 0.55 # 移动幅度比例(占屏幕宽度的比例)
 swipe_right: # 默认移动幅度比例为0.5
 ```
 
-14. swipe_vertical: 垂直方向(上下)滑动(传比例)
+15. swipe_vertical: 垂直方向(上下)滑动(传比例)
 ```yaml
 swipe_vertical: 0.2,0.7 # y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
 ```
 
-15. swipe_horizontal: 水平方向(左右)滑动(传比例)
+16. swipe_horizontal: 水平方向(左右)滑动(传比例)
 ```yaml
 swipe_horizontal: 0.2,0.7 # x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
 ```
 
-16. move_track: 移动轨迹(传坐标序列)
+17. move_track: 移动轨迹(传坐标序列)
 ```yaml
 move_track: '800,1600;100,1600;100,600;800,600;360,600;360,1100' # 坐标序列，坐标之间使用;分割，如x1,y1;x2,y2
 ```
 
-17. drag_and_drop_by: 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
+18. drag_and_drop_by: 拖拽(传元素): 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置
 ```yaml
 drag_and_drop_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -203,7 +208,7 @@ drag_and_drop_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-18. scroll_by: 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
+19. scroll_by: 滚动(传元素): 从一个元素滚动到另一元素，直到页面自动停止(有惯性)
 ```yaml
 scroll_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -211,7 +216,7 @@ scroll_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-19. move_by: 移动(传元素): 从一个元素移动到另一元素，无惯性
+20. move_by: 移动(传元素): 从一个元素移动到另一元素，无惯性
 ```yaml
 move_by: 
     by: xpath # 元素查找方式: id/sid/class/xpath    
@@ -219,22 +224,22 @@ move_by:
     to: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout
 ```
 
-20. zoom_in: 放大
+21. zoom_in: 放大
 ```yaml
 zoom_in: 
 ```
 
-21. zoom_out: 缩小
+22. zoom_out: 缩小
 ```yaml
 zoom_out: 
 ```
 
-22. tap: 敲击屏幕(传坐标)
+23. tap: 敲击屏幕(传坐标)
 ```yaml
 tap: 200,200
 ```
 
-23. tap_by: 敲击元素
+24. tap_by: 敲击元素
 ```yaml
 tap_by:
     # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -244,7 +249,7 @@ tap_by:
     duration: 10
 ```
 
-24. click_by/click_by_if_exist: 点击元素; 
+25. click_by/click_by_if_exist: 点击元素; 
 ```yaml
 click_by:
   # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -254,14 +259,30 @@ click_by:
 
 如果点击之前要先判断元素是否存在，则换用 click_by_if_exist
 
-25. screenshot: 整个窗口截图存为png; 
+26. shake: 摇一摇
+```yaml
+shake:
+```
+
+27. set_orientation: 设置屏幕方向
+```yaml
+set_orientation: true # 是否竖屏, 否则横屏
+```
+
+28. set_location: 设置地理位置
+```yaml
+set_location: 49,123 # 纬度,经度
+set_location: 49,123,10 # 纬度,经度,海拔高度
+```
+
+29. screenshot: 整个窗口截图存为png; 
 ```yaml
 screenshot:
     save_dir: downloads # 保存的目录，默认为 downloads
     save_file: test.png # 保存的文件名，默认为:时间戳.png
 ```
 
-26. screenshot_element_by: 对某个标签截图存为png; 
+30. screenshot_element_by: 对某个标签截图存为png; 
 ```yaml
 screenshot_element_by
     # 元素查找方式(id/sid/class/xpath) : 查找的值
@@ -272,27 +293,77 @@ screenshot_element_by
     save_file: test.png # 保存的文件名，默认为:时间戳.png
 ```
 
-27. execute_js: 执行js; 
+31. execute_js: 执行js; 
 ```yaml
 execute_js: alert('hello world')
 ```
 
-28. back: 返回键; 
+32. back: 返回键; 
 ```yaml
 back: 
 ```
 
-29. keyevent: 模拟系统键; 
+33. keyevent: 模拟系统键; 
 ```yaml
 keyevent: '4'
 ```
 
-30. open_notifications: 打开手机的通知栏; 
+34. open_notifications: 打开手机的通知栏; 
 ```yaml
 open_notifications: 
 ```
 
-31. for: 循环; 
+35. get_clipboard: 读剪切板内容; 
+```yaml
+get_clipboard: name # 参数为记录剪切板内容的变量名
+```
+
+36. set_clipboard: 写剪切板内容; 
+```yaml
+set_clipboard: hello world $name # 参数是写入内容，可带参数
+```
+
+37. push_file:推文件到手机上, 即写手机上文件; 
+```yaml
+push_file:
+    to: /storage/emulated/0/documents/test/a.txt # 写入的手机上的文件
+    content: helloworld # 写入的内容, content与to只能二选一
+    #from: a.txt # 写入内容的本地来源文件, content与to只能二选一
+```
+
+38. pull_file:从手机中拉文件, 即读手机上的文件; 
+```yaml
+pull_file:
+    from: /storage/emulated/0/documents/test/a.txt # 读取的手机上的文件
+    to: a.txt # 写入的本地文件, 可省
+    var: content # 记录文件内容的变量, 可省
+print: $content
+```
+
+39. send_sms:发送短信; 
+```yaml
+send_sms:
+    phone: 13475556022
+    content: hello $name
+```
+
+40. print_performance:打印性能信息; 
+```yaml
+print_performance:
+```
+
+41. start_recording_screen:开始录屏; 
+```yaml
+start_recording_screen:
+```
+
+42. stop_recording_screen:结束录屏,并存为视频文件; 
+```yaml
+stop_recording_screen: # 默认视频文件路径为 `record-时间.mp4`
+stop_recording_screen: a.mp4 # 视频文件路径
+```
+
+43. for: 循环; 
 for动作下包含一系列子步骤，表示循环执行这系列子步骤；变量`for_i`记录是第几次迭代（从1开始）
 ```yaml
 # 循环3次
@@ -310,7 +381,7 @@ for:
     sleep: 2
 ```
 
-32. once: 只执行一次，等价于 `for(1)`; 
+44. once: 只执行一次，等价于 `for(1)`; 
 once 结合 moveon_if，可以模拟 python 的 `if` 语法效果
 ```yaml
 once:
@@ -320,31 +391,31 @@ once:
     sleep: 2
 ```
 
-33. break_if: 满足条件则跳出循环; 
+45. break_if: 满足条件则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 break_if: for_i>2 # 条件表达式，python语法
 ```
 
-34. moveon_if: 满足条件则往下走，否则跳出循环; 
+46. moveon_if: 满足条件则往下走，否则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 moveon_if: for_i<=2 # 条件表达式，python语法
 ```
 
-35. moveon_if_exist_by: 如果检查元素存在 则往下走，否则跳出循环; 
+47. moveon_if_exist_by: 如果检查元素存在 则往下走，否则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 moveon_if_exist_by:
     id: com.shikee.shikeeapp:id/button1
 ```
 
-36. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
+48. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
 ```yaml
 include: part-common.yml
 ```
 
-37. set_vars: 设置变量; 
+49. set_vars: 设置变量; 
 ```yaml
 set_vars:
   name: shi
@@ -352,17 +423,17 @@ set_vars:
   birthday: 5-27
 ```
 
-38. print_vars: 打印所有变量; 
+50. print_vars: 打印所有变量; 
 ```yaml
 print_vars:
 ```
 
-39. set_base_url: 设置基础url
+51. set_base_url: 设置基础url
 ```yaml
 set_base_url: https://www.taobao.com/
 ```
 
-40. get: 发get请求, 但无跳转; 
+52. get: 发get请求, 但无跳转; 
 ```yaml
 get:
     url: $dyn_data_url # url,支持写变量
@@ -370,7 +441,7 @@ get:
       dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
 ```
 
-41. post: 发post请求, 但无跳转; 
+53. post: 发post请求, 但无跳转; 
 ```yaml
 post:
     url: http://admin.jym1.com/store/add_store # url,支持写变量
@@ -381,7 +452,7 @@ post:
       store_logo_url: '$img'
 ```
 
-42. upload: 上传文件; 
+54. upload: 上传文件; 
 ```yaml
 upload: # 上传文件/图片
     url: http://admin.jym1.com/upload/common_upload_img/store_img
@@ -392,7 +463,7 @@ upload: # 上传文件/图片
       img: $.data.url
 ```
 
-43. download: 下载文件; 
+55. download: 下载文件; 
 变量`download_file`记录最新下载的单个文件
 ```yaml
 download:
@@ -401,7 +472,7 @@ download:
     save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-44. recognize_captcha: 识别验证码; 
+56. recognize_captcha: 识别验证码; 
 参数同 `download` 动作， 因为内部就是调用 `download`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -411,7 +482,7 @@ recognize_captcha:
     # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-45. recognize_captcha_element: 识别验证码标签中的验证码; 
+57. recognize_captcha_element: 识别验证码标签中的验证码; 
 参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
 而变量`captcha`记录识别出来的验证码
 ```
