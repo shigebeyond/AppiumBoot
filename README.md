@@ -353,11 +353,13 @@ print_performance:
 ```
 
 41. start_recording_screen:开始录屏; 
+start_recording_screen 与 stop_recording_screen 配合使用(start在前,stop在后)
 ```yaml
 start_recording_screen:
 ```
 
-42. stop_recording_screen:结束录屏,并存为视频文件; 
+42. stop_recording_screen:结束录屏,并存为视频文件;
+start_recording_screen 与 stop_recording_screen 配合使用(start在前,stop在后), 如果两者中间的发生异常, 则系统会主动调用后续第一个stop_recording_screen动作, 以便记录好异常的全过程
 ```yaml
 stop_recording_screen: # 默认视频文件路径为 `record-时间.mp4`
 stop_recording_screen: a.mp4 # 视频文件路径

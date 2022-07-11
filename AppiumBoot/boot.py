@@ -209,30 +209,33 @@ class Boot(object):
 
     # 执行多个步骤
     def run_steps(self, steps):
-        # 逐个步骤调用多个动作
-        for step in steps:
-            actions = step.items()
-            try:
-                # 逐个调用动作
-                for i in range(0, len(actions)):
-                    action, param = actions[i]
+        try:
+            # 逐个步骤调用多个动作
+            i = 0
+            for step in steps:
+                for action, param in step.items():
                     self.run_action(action, param)
-            except Exception as ex:
-                # 当发生异常时,如果正在录屏,则结束录屏
-                if self.recording:
-                    self.try_stop_recording_screen(action, i+1)
-                raise ex
+                    i += 1
+        except Exception as ex:
+            # 异常(忽略跳出循环的异常) + 正在录屏, 则结束录屏
+            if (not isinstance(ex, BreakException)) and self.recording:
+                self.try_stop_recording_screen(steps, i)
+            raise ex
 
     # 调用后续的第一个停止录屏动作
-    def try_stop_recording_screen(self, actions, start):
-        # 找到并调用后续的第一个停止录屏动作
-        for i in range(start, len(actions)):
-            action, param = actions[i]
-            if action == 'stop_recording_screen':
-                # 调用动作
-                # self.run_action(action, param)
-                self.stop_recording_screen(param)
-                break
+    def try_stop_recording_screen(self, steps, start):
+        # 逐个步骤检查多个动作
+        i = 0
+        for step in steps:
+            for action, param in step.items():
+                if i > start and action == 'stop_recording_screen':
+                    print_exception('发生异常, 结束录屏')
+                    # 调用动作
+                    # self.run_action(action, param)
+                    self.stop_recording_screen(param)
+                    return
+
+                i += 1
 
     '''
     执行单个动作：就是调用动作名对应的函数
@@ -852,6 +855,7 @@ class Boot(object):
         # 存为mp4文件
         if path == None:
             path = time.strftime('record-%Y%m%d-%H%M%S') + '.mp4'
+        path = self._prepare_save_file({}, path)
         write_byte_file(path, data)
 
     # 设置基础url
