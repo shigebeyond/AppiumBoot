@@ -430,9 +430,9 @@ set_vars:
 print_vars:
 ```
 
-51. set_base_url: 设置基础url
+51. base_url: 设置基础url
 ```yaml
-set_base_url: https://www.taobao.com/
+base_url: https://www.taobao.com/
 ```
 
 52. get: 发get请求, 但无跳转; 

@@ -55,7 +55,7 @@ class Boot(object):
         # 已下载过的url对应的文件，key是url，value是文件
         self.downloaded_files = {}
         # 基础url
-        self.base_url = None
+        self._base_url = None
         # 当前页面的校验器
         self.validator = validator.Validator(self.driver)
         # 当前页面的提取器
@@ -115,6 +115,7 @@ class Boot(object):
             'include': self.include,
             'set_vars': self.set_vars,
             'print_vars': self.print_vars,
+            'base_url': self.base_url,
             'get': self.get,
             'post': self.post,
             'upload': self.upload,
@@ -859,28 +860,29 @@ class Boot(object):
         write_byte_file(path, data)
 
     # 设置基础url
-    def set_base_url(self, url):
-        self.base_url = url
+    def base_url(self, url):
+        self._base_url = url
 
     # 拼接url
     def _get_url(self, config):
         url = config['url']
         url = replace_var(url)  # 替换变量
         # 添加基url
-        if (self.base_url is not None) and ("http" not in url):
-            url = self.base_url + url
+        if (self._base_url is not None) and ("http" not in url):
+            url = self._base_url + url
         return url
 
     # get请求
-    # :param config {url, is_ajax, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
+    # :param config {url, is_ajax, data, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
     def get(self, config = {}):
         url = self._get_url(config)
+        data = replace_var(config['data'], False)
         headers = {}
         if 'is_ajax' in config and config['is_ajax']:
             headers = {
                 'X-Requested-With': 'XMLHttpRequest'
             }
-        res = requests.get(url, headers=headers)
+        res = requests.get(url, headers=headers, data=data)
         # print(res.text)
         # 解析响应
         self._analyze_response(res, config)
@@ -889,7 +891,7 @@ class Boot(object):
     # :param config {url, is_ajax, data, validate_by_jsonpath, validate_by_css, validate_by_xpath, extract_by_jsonpath, extract_by_css, extract_by_xpath, extract_by_eval}
     def post(self, config = {}):
         url = self._get_url(config)
-        data = replace_var(config['data'])
+        data = replace_var(config['data'], False)
         headers = {}
         if 'is_ajax' in config and config['is_ajax']:
             headers = {
@@ -998,22 +1000,22 @@ class Boot(object):
         #os.remove(file)
 
     def validate_by_jsonpath(self, fields):
-        return self.run_type('jsonpath', fields)
+        return self.validator.run_type('jsonpath', fields)
 
     def validate_by_css(self, fields):
-        return self.run_type('css', fields)
+        return self.validator.run_type('css', fields)
 
     def validate_by_xpath(self, fields):
-        return self.run_type('xpath', fields)
+        return self.validator.run_type('xpath', fields)
 
     def validate_by_id(self, fields):
-        return self.run_type('id', fields)
+        return self.validator.run_type('id', fields)
 
     def validate_by_aid(self, fields):
-        return self.run_type('aid', fields)
+        return self.validator.run_type('aid', fields)
 
     def validate_by_class(self, fields):
-        return self.run_type('class', fields)
+        return self.validator.run_type('class', fields)
 
     def extract_by_jsonpath(self, fields):
         return self.extractor.run_type('jsonpath', fields)

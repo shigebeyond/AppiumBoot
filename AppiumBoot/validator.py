@@ -74,4 +74,4 @@ class Validator(response_wrapper.ResponseWrap):
         # 调用校验函数
         print(f"处理校验函数: {func}={param}")
         func = self.funcs[func]
-        func(val, param)
+        return func(val, param)
