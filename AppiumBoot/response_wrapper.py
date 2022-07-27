@@ -21,8 +21,8 @@ class ResponseWrap(object):
     def _get_val_by(self, type, path):
         if type == 'css':
             if self.res != None:
-                html = etree.parse(self.res.text, etree.HTMLParser())
-                return html.cssselect(path).text
+                html = etree.fromstring(self.res.text, etree.HTMLParser())
+                return html.cssselect(path)[0].text
 
             raise Exception(f"无http响应, 不支持查找类型: {type}")
 
@@ -37,8 +37,8 @@ class ResponseWrap(object):
                 prop = prop.replace('/@', '')
 
             if self.res != None:
-                html = etree.parse(self.res.text, etree.HTMLParser())
-                ele = html.xpath(path)
+                html = etree.fromstring(self.res.text, etree.HTMLParser())
+                ele = html.xpath(path)[0]
                 if prop != '': # 获得属性
                     return ele.get(prop)
                 return ele.text
