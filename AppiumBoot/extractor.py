@@ -3,14 +3,13 @@
 
 from requests import Response
 from selenium import webdriver
-import util
-import response_wrapper
-from util import set_var,get_var
+from AppiumBoot.response_wrapper import ResponseWrap
+from AppiumBoot.util import *
 import json # eval 可能会用到
 import re
 
 # 抽取器
-class Extractor(response_wrapper.ResponseWrap):
+class Extractor(ResponseWrap):
 
     def __init__(self, driver: webdriver.Remote, res: Response = None):
         super(Extractor, self).__init__(driver, res)
@@ -52,7 +51,7 @@ class Extractor(response_wrapper.ResponseWrap):
     def run_eval(self, fields):
         for var, expr in fields.items():
             # 获得字段值
-            val = eval(expr, globals(), util.vars) # 丢失本地与全局变量, 如引用不了json模块
+            val = eval(expr, globals(), bvars) # 丢失本地与全局变量, 如引用不了json模块
             # 抽取单个字段
             set_var(var, val)
             print(f"抽取参数: {var}={val}")

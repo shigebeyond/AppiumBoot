@@ -7,13 +7,12 @@ import os
 import fnmatch
 from pathlib import Path
 import requests
-from ocr import *
-from util import *
+from AppiumBoot.ocr import *
+from AppiumBoot.util import *
 import base64
-import util
-import validator
-import extractor
-from helpers import *
+from AppiumBoot.validator import Validator
+from AppiumBoot.extractor import Extractor
+from AppiumBoot.helpers import *
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
@@ -57,9 +56,9 @@ class Boot(object):
         # 基础url
         self._base_url = None
         # 当前页面的校验器
-        self.validator = validator.Validator(self.driver)
+        self.validator = Validator(self.driver)
         # 当前页面的提取器
-        self.extractor = extractor.Extractor(self.driver)
+        self.extractor = Extractor(self.driver)
         # 动作映射函数
         self.actions = {
             'init_driver': self.init_driver,
@@ -323,7 +322,7 @@ class Boot(object):
 
     # 跳出for循环
     def break_if(self, expr):
-        val = eval(expr, globals(), util.vars)  # 丢失本地与全局变量, 如引用不了json模块
+        val = eval(expr, globals(), bvars)  # 丢失本地与全局变量, 如引用不了json模块
         if bool(val):
             raise BreakException(expr)
 
@@ -348,7 +347,7 @@ class Boot(object):
 
     # 打印变量
     def print_vars(self, _):
-        print(f"打印变量: {util.vars}")
+        print(f"打印变量: {bvars}")
 
     # 睡眠
     def sleep(self, seconds):
@@ -365,10 +364,10 @@ class Boot(object):
         # 添加固定变量:响应
         set_var('response', res)
         # 校验器
-        v = validator.Validator(self.driver, res)
+        v = Validator(self.driver, res)
         v.run(config)
         # 提取器
-        e = extractor.Extractor(self.driver, res)
+        e = Extractor(self.driver, res)
         e.run(config)
 
     # 根据组件id来填充输入框

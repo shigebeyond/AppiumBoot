@@ -49,8 +49,10 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
-    entry_points='''
-        [console_scripts]
-        AppiumBoot=AppiumBoot.boot:main
-    '''
+    # 把python中的函数自动生成为一个可执行的脚本
+    entry_points = {
+       'console_scripts': [
+           'AppiumBoot=AppiumBoot.boot:main',  # 格式为'命令名 = 模块名:函数名'
+       ]
+    },
 )

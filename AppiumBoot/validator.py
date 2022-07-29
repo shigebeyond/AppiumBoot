@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import re
-import response_wrapper
+from AppiumBoot.response_wrapper import ResponseWrap
 from selenium import webdriver
 from requests import Response
 
-
 # 校验器
-class Validator(response_wrapper.ResponseWrap):
+class Validator(ResponseWrap):
 
     def __init__(self, driver: webdriver.Remote, res: Response = None):
         super(Validator, self).__init__(driver, res)
