@@ -33,6 +33,13 @@ Appium是移动端的自动化测试工具，但是要写python代码；
 pip3 install AppiumBoot
 ```
 
+安装后会生成命令`AppiumBoot`;
+
+注： 对于深度deepin-linux，生成的命令放在目录`~/.local/bin`，建议将该目录添加到环境变量`PATH`中，如
+```
+export PATH="$PATH:/home/shi/.local/bin"
+```
+
 ## 使用
 ```
 # 1 执行单个文件
@@ -48,7 +55,141 @@ AppiumBoot 步骤配置目录
 AppiumBoot 步骤配置目录/step-*.yml
 ```
 
-## 步骤配置文件demo
+- 如执行 `AppiumBoot example/step-material.yml`:
+你需要先安装[android material组件demo app](https://gitee.com/lizhenghaodamowang/material-components-android);
+输出如下:
+```
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-material.yml
+处理动作: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'io.material.catalog', 'appActy': 'io.material.catalog.main.MainActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
+处理动作: include=material/comp1.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp1.yml
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
+处理动作: swipe_up=None
+处理动作: sleep=1
+处理动作: swipe_down=None
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/end'}
+处理动作: sleep=2
+处理动作: click_by={'id': 'io.material.catalog:id/center'}
+处理动作: sleep=2
+处理动作: click_by={'id': 'io.material.catalog:id/attach_toggle'}
+处理动作: sleep=2
+处理动作: click_by={'id': 'io.material.catalog:id/center'}
+处理动作: include=material/back.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+处理动作: sleep=1
+处理动作: back=None
+处理动作: sleep=1
+处理动作: back=None
+处理动作: include=material/comp2.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp2.yml
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout'}
+处理动作: sleep=1
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
+处理动作: click_by={'aid': 'Page 2'}
+处理动作: click_by={'aid': 'Theme Switcher'}
+处理动作: sleep=1
+处理动作: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Green"])[1]'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/apply_button'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/add_button'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/remove_button'}
+处理动作: sleep=2
+处理动作: back=None
+处理动作: sleep=1
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[3]'}
+处理动作: sleep=1
+处理动作: click_by={'aid': 'Alarm'}
+处理动作: sleep=1
+处理动作: click_by={'aid': 'Clock'}
+处理动作: sleep=1
+处理动作: click_by={'aid': 'Timer'}
+处理动作: sleep=1
+处理动作: click_by={'aid': 'Stopwatch'}
+处理动作: include=material/back.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+处理动作: sleep=1
+处理动作: back=None
+处理动作: sleep=1
+处理动作: back=None
+处理动作: include=material/comp3.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp3.yml
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.widget.LinearLayout'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
+处理动作: print=非全屏的上拉
+非全屏的上拉
+处理动作: sleep=1
+处理动作: swipe_up=None
+处理动作: sleep=1
+处理动作: swipe_vertical=0.55,0.8
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/cat_fullscreen_switch'}
+处理动作: sleep=1
+处理动作: print=全屏的上拉
+全屏的上拉
+处理动作: swipe_up=None
+处理动作: sleep=1
+处理动作: swipe_down=None
+处理动作: include=material/back.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+处理动作: sleep=1
+处理动作: back=None
+处理动作: sleep=1
+处理动作: back=None
+处理动作: include=material/comp4.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp4.yml
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout'}
+处理动作: sleep=1
+处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
+处理动作: click_by={'aid': 'Theme Switcher'}
+处理动作: sleep=1
+处理动作: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Yellow"])[1]'}
+处理动作: sleep=1
+处理动作: click_by={'id': 'io.material.catalog:id/apply_button'}
+处理动作: click_by={'id': 'io.material.catalog:id/material_button'}
+处理动作: sleep=1
+处理动作: back=None
+......
+```
+命令会自动打开[android material组件demo app](https://gitee.com/lizhenghaodamowang/material-components-android)，并按照步骤配置文件的描述来执行动作，如下拉、上拉、左滑、点击按钮等，一个个组件页面去操作
+
+- 如执行 `AppiumBoot example/step-zhs.yml`:
+你要先安装众划算app;
+输出如下:
+```
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-zhs.yml
+处理动作: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'com.zhs.zhonghuasuanapp', 'apivity': 'com.zhs.activity.StartActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
+处理动作: sleep=7
+处理动作: click_by_if_exist={'id': 'com.zhs.zhonghuasuanapp:id/img_start'}
+处理动作: start_recording_screen=None
+处理动作: swipe_up=None
+处理动作: include=zhs/login.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/zhs/login.yml
+处理动作: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_my_image'}
+处理动作: sleep=2
+处理动作: once=[{'moveon_if': "boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')", 'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/tv_account_login'}, 'sleep': 2}, {'input_by_id': {'com.zhsnghuasuanapp:id/edit_login_username': 'shigebeyond', 'com.zhs.zhonghuasuanapp:id/edit_login_password': 'shige123'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/box_user_agreement'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/login_submit'}, 'sleep': 4}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/btn_i_know'}}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/tv_hid_guid'}}]
+-- 开始循环: for(1) -- 
+第1次迭代
+处理动作: moveon_if=boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')
+-- 跳出循环: for(1), 跳出条件: not (boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')) -- 
+处理动作: sleep=2
+处理动作: include=zhs/apply.yml
+加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/zhs/apply.yml
+处理动作: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_new_image'}
+处理动作: sleep=4
+处理动作: swipe_up=None
+处理动作: sleep=2
+处理动作: swipe_down=None
+......
+```
+命令会自动打开众划算app，并按照步骤配置文件的描述来执行动作，如下拉、上拉、左滑、点击按钮等
+
+## 步骤配置文件及demo
 用于指定多个步骤, 示例见源码 [example](https://github.com/shigebeyond/AppiumBoot/tree/main/example) 目录下的文件;
 
 顶级的元素是步骤;
