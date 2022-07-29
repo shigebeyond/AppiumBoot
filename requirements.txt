@@ -5,4 +5,4 @@ jsonpath == 0.82
 lxml == 4.3.2
 requests == 2.27.1
 Appium-Python-Client == 2.3.0
-pyutilb == 1.0.1
+pyutilb == 1.0.2
