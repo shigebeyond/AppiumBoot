@@ -78,15 +78,15 @@ def incr(key):
     return incr_vals[key]
 
 # 变量
-vars = {}
+bvars = {}
 
 # 设置变量
 def set_var(name, val):
-    vars[name] = val
+    bvars[name] = val
 
 # 获取变量
 def get_var(name):
-    return vars[name]
+    return bvars[name]
 
 # 替换变量： 将 $变量名 或 ${变量表达式} 替换为 变量值
 # :param txt 兼容基础类型+字符串+列表+字典等类型, 如果是字符串, 则是带变量的表达式
@@ -149,9 +149,9 @@ def analyze_var_expr(expr):
         return r
 
     if '.' in expr:  # 有多级属性, 如 data.msg
-        return jsonpath(vars, '$.' + expr)[0]
+        return jsonpath(bvars, '$.' + expr)[0]
 
-    return vars[expr]
+    return bvars[expr]
 
 
 # 替换变量时用到的内部函数
