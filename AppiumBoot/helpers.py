@@ -2,6 +2,7 @@ import os
 import sys
 from selenium.common.exceptions import InvalidSessionIdException
 from sauceclient import SauceClient
+from pyutilb import log
 
 sauce = None
 if os.getenv('SAUCE_LABS') and os.getenv('SAUCE_USERNAME') and os.getenv('SAUCE_ACCESS_KEY'):
@@ -34,7 +35,7 @@ def __save_log_type(driver, device_logger, calling_request, type):
 
 def report_to_sauce(session_id):
     if sauce is not None:
-        print("Link to your job: https://saucelabs.com/jobs/%s" % session_id)
+        log.debug("Link to your job: https://saucelabs.com/jobs/%s" % session_id)
         passed = str(sys.exc_info() == (None, None, None))
         sauce.jobs.update_job(session_id, passed=passed)
     else:

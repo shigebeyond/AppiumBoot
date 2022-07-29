@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+*.pyc
+logs/
+*.pid
+downloads/
+build/
+AppiumBoot.egg-info/
+dist/
+boot.log*

@@ -14,6 +14,12 @@ with open('AppiumBoot/__init__.py', 'rb') as f:
     items = re.findall(r'__(\w+)__ = "(.+)"', text)
     meta = dict(items)
 
+# 读依赖
+with open('requirements.txt', 'rb') as f:
+    text = f.read().decode('utf-8')
+    text = text.replace(' ', '') # 去掉空格
+    requires = text.split('\n')
+    
 setup(
     name='AppiumBoot',
     version=meta['version'],
@@ -28,14 +34,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     python_requires=">=3.6",
-    install_requires=[
-        'PyYAML>=6.0',
-        'selenium==4.1.5',
-        'selenium-requests==1.4.1',
-        'jsonpath>=0.82',
-        'lxml==4.3.2',
-        'Appium-Python-Client==2.3.0'
-    ],
+    install_requires=requires,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Topic :: Software Development :: Testing",
