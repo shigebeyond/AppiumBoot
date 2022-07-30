@@ -12,7 +12,7 @@ from pyutilb.util import *
 import base64
 from AppiumBoot.validator import Validator
 from AppiumBoot.extractor import Extractor
-from AppiumBoot.helpers import *
+# from AppiumBoot.helpers import *
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
@@ -136,7 +136,10 @@ class Boot(object):
             'extract_by_eval': self.extract_by_eval,
         }
         set_var('boot', self)
-        self.recording = False # 是否在录屏
+        # 是否在录屏
+        self.recording = False
+        # 当前文件
+        self.step_file = None
 
     '''
     执行入口
@@ -192,20 +195,9 @@ class Boot(object):
         log.debug(f"加载并执行步骤文件: {step_file}")
         # 获得步骤
         steps = read_yaml(step_file)
-        try:
-            # 执行多个步骤
-            self.run_steps(steps)
-        except Exception as ex:
-            activity = ''
-            src = ''
-            if self.driver != None:
-                activity = self.driver.current_activity
-                src = self.driver.page_source
-                # report_to_sauce(self.driver.session_id)
-                # take_screenshot_and_logcat(self.driver, device_logger, calling_request)
-            # log.debug(f"异常环境:当前步骤文件为 {step_file}, 当前activity为 {activity}, 当前层级为 {src}")
-            log.debug(f"异常环境:当前步骤文件为 {step_file}, 当前activity为 {activity}")
-            raise ex
+        self.step_file = step_file
+        # 执行多个步骤
+        self.run_steps(steps)
 
     # 执行多个步骤
     def run_steps(self, steps):
@@ -229,7 +221,7 @@ class Boot(object):
         for step in steps:
             for action, param in step.items():
                 if i > start and action == 'stop_recording_screen':
-                    print_exception('发生异常, 结束录屏')
+                    log.error('发生异常, 结束录屏')
                     # 调用动作
                     # self.run_action(action, param)
                     self.stop_recording_screen(param)
@@ -402,8 +394,7 @@ class Boot(object):
             try:
                 ele = self.find_by(type, name)
             except Exception as ex:  # 找不到元素
-                print_exception(f"找不到输入元素{name}")
-                print_exception(str(ex))
+                log.error(f"找不到输入元素{name}", exc_info = ex)
                 continue
 
             ele.clear() # 先清空
@@ -1042,15 +1033,27 @@ class Boot(object):
 def main():
     # 基于yaml的执行器
     boot = Boot()
-    # 步骤配置的yaml
-    if len(sys.argv) > 1:
-        step_files = sys.argv[1:]
-    else:
-        raise Exception("未指定步骤配置文件或目录")
-    # 执行yaml配置的步骤
-    boot.run(step_files)
-    boot.close_driver()
-
+    try:
+        # 步骤配置的yaml
+        if len(sys.argv) > 1:
+            step_files = sys.argv[1:]
+        else:
+            raise Exception("未指定步骤配置文件或目录")
+        # 执行yaml配置的步骤
+        boot.run(step_files)
+    except Exception as ex:
+        activity = ''
+        src = ''
+        if boot.driver != None:
+            activity = boot.driver.current_activity
+            src = boot.driver.page_source
+            # report_to_sauce(boot.driver.session_id)
+            # take_screenshot_and_logcat(boot.driver, device_logger, calling_request)
+        # log.error(f"异常环境:当前步骤文件为 {step_file}, 当前activity为 {activity}, 当前层级为 {src}", exc_info = ex)
+        log.error(f"异常环境:当前步骤文件为 {boot.step_file}, 当前activity为 {activity}", exc_info = ex)
+        raise ex
+    finally:
+        boot.close_driver()
 
 if __name__ == '__main__':
     main()
