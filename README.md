@@ -308,10 +308,10 @@ swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_up: # 默认移动幅度比例为0.5
 ```
 
-12. swipe_down: 下滑(传y坐标)
+12. swipe_down: 下滑(传比例)
 ```yaml
-swipe_down: 100 # y坐标
-swipe_down: # 默认y坐标为中间
+swipe_down: 0.55 # 移动幅度比例(占屏幕高度的比例)
+swipe_down: # 默认移动幅度比例为0.5
 ```
 
 13. swipe_left: 左滑(传y坐标)
@@ -320,10 +320,10 @@ swipe_left: 100 # y坐标
 swipe_left: # 默认y坐标为中间
 ```
 
-14. swipe_right: 右滑(传比例)
+14. swipe_right: 右滑(传y坐标)
 ```yaml
-swipe_right: 0.55 # 移动幅度比例(占屏幕宽度的比例)
-swipe_right: # 默认移动幅度比例为0.5
+swipe_right: 100 # y坐标
+swipe_right: # 默认y坐标为中间
 ```
 
 15. swipe_vertical: 垂直方向(上下)滑动(传比例)
