@@ -47,6 +47,10 @@ class Boot(object):
     def __init__(self):
         # 延迟初始化driver
         self.driver = None
+        # 当前页面的校验器, 依赖于driver
+        self.validator = None
+        # 当前页面的提取器, 依赖于driver
+        self.extractor = None
         # 延迟初始化的app包
         self.package = None
         # 步骤文件所在的目录
@@ -55,10 +59,6 @@ class Boot(object):
         self.downloaded_files = {}
         # 基础url
         self._base_url = None
-        # 当前页面的校验器
-        self.validator = Validator(self.driver)
-        # 当前页面的提取器
-        self.extractor = Extractor(self.driver)
         # 动作映射函数
         self.actions = {
             'init_driver': self.init_driver,
@@ -274,7 +274,12 @@ class Boot(object):
         desired_caps = config['desired_caps']
         if 'appPackage' in desired_caps:
             package = desired_caps['appPackage']
+        # driver
         self.driver = webdriver.Remote(executor, desired_caps)
+        # 当前页面的校验器, 依赖于driver
+        self.validator = Validator(self.driver)
+        # 当前页面的提取器, 依赖于driver
+        self.extractor = Extractor(self.driver)
 
     # 关闭driver
     def close_driver(self):
@@ -443,15 +448,6 @@ class Boot(object):
             return True
         except NoSuchElementException:
             return False
-
-    # 根据指定类型，查找元素的文本
-    def get_text_by(self, type, path):
-        ele = self.find_by(type, path)
-        return ele.get_text_or_content()
-
-    # 根据指定类型，检查元素的文本是否等于
-    def check_text_by(self, type, path, txt):
-        return self.get_text_by(type, path) == txt
 
     # 屏幕滑动(传坐标)
     # :param config {from, to}
