@@ -41,6 +41,9 @@ export PATH="$PATH:/home/shi/.local/bin"
 ```
 
 ## 使用
+1. 先启动 appium
+
+2. 使用
 ```
 # 1 执行单个文件
 AppiumBoot 步骤配置文件.yml

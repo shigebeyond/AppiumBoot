@@ -456,7 +456,7 @@ class Boot(object):
         x2, y2 = config['to'].split(",", 1) # 终点位置
         self.driver.flick(x1, y1, x2, y2)
 
-    # 屏幕横扫(传坐标)
+    # 屏幕横扫(传坐标) -- 多次调用多次滑,就算参数一样
     # :param config {from, to, duration}
     def swipe(self, config):
         x1, y1 = config['from'].split(",", 1) # 起点位置
@@ -466,7 +466,7 @@ class Boot(object):
             duration = float(config['duration']) * 1000
         self.driver.swipe(x1, y1, x2, y2, duration)
 
-    # 上滑(传比例)
+    # 上滑(传比例) -- 多次调用多次滑,就算参数一样
     # :param 移动幅度比例
     def swipe_up(self, move_ratio):
         if move_ratio == None:
@@ -476,7 +476,7 @@ class Boot(object):
         # self.swipe_vertical(f'0.75,0.25')
         self.swipe_vertical(f'{start},{end}')
 
-    # 下滑(传比例)
+    # 下滑(传比例) -- 多次调用多次滑,就算参数一样
     # :param 移动幅度比例
     def swipe_down(self, move_ratio):
         if move_ratio == None:
@@ -486,17 +486,17 @@ class Boot(object):
         # self.swipe_vertical('0.25,0.75')
         self.swipe_vertical(f'{start},{end}')
 
-    # 左滑(传y坐标)
+    # 左滑(传y坐标) -- 多次调用多次滑,就算参数一样
     # :param y y坐标，固定不变，默认为中间
     def swipe_left(self, y = None):
         self.swipe_horizontal('0.75,0.25', y)
 
-    # 右滑(传y坐标)
+    # 右滑(传y坐标) -- 多次调用多次滑,就算参数一样
     # :param y y坐标，固定不变，默认为中间
     def swipe_right(self, y = None):
         self.swipe_horizontal('0.25,0.75', y)
 
-    # 垂直方向(上下)滑动
+    # 垂直方向(上下)滑动 -- 多次调用多次滑,就算参数一样
     # :param y_range_ratios y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
     # :param xm x坐标，固定不变，默认为中间
     def swipe_vertical(self, y_range_ratios, xm = None):
@@ -512,9 +512,10 @@ class Boot(object):
         y1 = int(h * float(y1_ratio))
         y2 = int(h * float(y2_ratio))
         duration = 0.1 * 1000
+        log.info(f"xm={xm}, y1={y1}, xm={xm}, y2={y2}, ")
         self.driver.swipe(xm, y1, xm, y2, duration)
 
-    # 水平方向(左右)滑动
+    # 水平方向(左右)滑动 -- 多次调用多次滑,就算参数一样
     # :param x_range_ratios x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
     # :param ym y坐标，固定不变，默认为中间
     def swipe_horizontal(self, x_range_ratios, ym = None):
