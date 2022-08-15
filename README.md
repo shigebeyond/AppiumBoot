@@ -60,6 +60,7 @@ AppiumBoot 步骤配置目录/step-*.yml
 
 - 如执行 `AppiumBoot example/step-material.yml`:
 你需要先安装[android material组件demo app](https://gitee.com/lizhenghaodamowang/material-components-android);
+效果见[演示视频](https://www.zhihu.com/zvideo/1542517089130147840);
 输出如下:
 ```
 加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-material.yml
@@ -200,6 +201,8 @@ AppiumBoot 步骤配置目录/step-*.yml
 每个步骤里有多个动作(如sleep)，如果动作有重名，就另外新开一个步骤写动作，这是由yaml语法限制导致的，但不影响步骤执行。
 
 [demo](https://github.com/shigebeyond/AppiumBoot/blob/main/example/)
+
+[demo视频](https://www.zhihu.com/zvideo/1542517089130147840)
 
 ## 查找元素的方法
 1. id:
