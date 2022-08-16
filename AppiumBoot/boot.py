@@ -47,6 +47,10 @@ class Boot(object):
     def __init__(self):
         # 延迟初始化driver
         self.driver = None
+        # 当前页面的校验器, 依赖于driver
+        self.validator = None
+        # 当前页面的提取器, 依赖于driver
+        self.extractor = None
         # 延迟初始化的app包
         self.package = None
         # 步骤文件所在的目录
@@ -55,10 +59,6 @@ class Boot(object):
         self.downloaded_files = {}
         # 基础url
         self._base_url = None
-        # 当前页面的校验器
-        self.validator = Validator(self.driver)
-        # 当前页面的提取器
-        self.extractor = Extractor(self.driver)
         # 动作映射函数
         self.actions = {
             'init_driver': self.init_driver,
@@ -274,7 +274,12 @@ class Boot(object):
         desired_caps = config['desired_caps']
         if 'appPackage' in desired_caps:
             package = desired_caps['appPackage']
+        # driver
         self.driver = webdriver.Remote(executor, desired_caps)
+        # 当前页面的校验器, 依赖于driver
+        self.validator = Validator(self.driver)
+        # 当前页面的提取器, 依赖于driver
+        self.extractor = Extractor(self.driver)
 
     # 关闭driver
     def close_driver(self):
@@ -444,15 +449,6 @@ class Boot(object):
         except NoSuchElementException:
             return False
 
-    # 根据指定类型，查找元素的文本
-    def get_text_by(self, type, path):
-        ele = self.find_by(type, path)
-        return ele.get_text_or_content()
-
-    # 根据指定类型，检查元素的文本是否等于
-    def check_text_by(self, type, path, txt):
-        return self.get_text_by(type, path) == txt
-
     # 屏幕滑动(传坐标)
     # :param config {from, to}
     def flick(self, config):
@@ -460,7 +456,7 @@ class Boot(object):
         x2, y2 = config['to'].split(",", 1) # 终点位置
         self.driver.flick(x1, y1, x2, y2)
 
-    # 屏幕横扫(传坐标)
+    # 屏幕横扫(传坐标) -- 多次调用多次滑,就算参数一样
     # :param config {from, to, duration}
     def swipe(self, config):
         x1, y1 = config['from'].split(",", 1) # 起点位置
@@ -470,7 +466,7 @@ class Boot(object):
             duration = float(config['duration']) * 1000
         self.driver.swipe(x1, y1, x2, y2, duration)
 
-    # 上滑(传比例)
+    # 上滑(传比例) -- 多次调用多次滑,就算参数一样
     # :param 移动幅度比例
     def swipe_up(self, move_ratio):
         if move_ratio == None:
@@ -480,7 +476,7 @@ class Boot(object):
         # self.swipe_vertical(f'0.75,0.25')
         self.swipe_vertical(f'{start},{end}')
 
-    # 下滑(传比例)
+    # 下滑(传比例) -- 多次调用多次滑,就算参数一样
     # :param 移动幅度比例
     def swipe_down(self, move_ratio):
         if move_ratio == None:
@@ -490,17 +486,17 @@ class Boot(object):
         # self.swipe_vertical('0.25,0.75')
         self.swipe_vertical(f'{start},{end}')
 
-    # 左滑(传y坐标)
+    # 左滑(传y坐标) -- 多次调用多次滑,就算参数一样
     # :param y y坐标，固定不变，默认为中间
     def swipe_left(self, y = None):
         self.swipe_horizontal('0.75,0.25', y)
 
-    # 右滑(传y坐标)
+    # 右滑(传y坐标) -- 多次调用多次滑,就算参数一样
     # :param y y坐标，固定不变，默认为中间
     def swipe_right(self, y = None):
         self.swipe_horizontal('0.25,0.75', y)
 
-    # 垂直方向(上下)滑动
+    # 垂直方向(上下)滑动 -- 多次调用多次滑,就算参数一样
     # :param y_range_ratios y轴起点/终点位置在屏幕的比例，如 0.2,0.7，即y轴上从屏幕0.2比例处滑到0.7比例处
     # :param xm x坐标，固定不变，默认为中间
     def swipe_vertical(self, y_range_ratios, xm = None):
@@ -516,9 +512,10 @@ class Boot(object):
         y1 = int(h * float(y1_ratio))
         y2 = int(h * float(y2_ratio))
         duration = 0.1 * 1000
+        log.info(f"xm={xm}, y1={y1}, xm={xm}, y2={y2}, ")
         self.driver.swipe(xm, y1, xm, y2, duration)
 
-    # 水平方向(左右)滑动
+    # 水平方向(左右)滑动 -- 多次调用多次滑,就算参数一样
     # :param x_range_ratios x轴起点/终点位置在屏幕的比例，如 0.2,0.7，即x轴上从屏幕0.2比例处滑到0.7比例处
     # :param ym y坐标，固定不变，默认为中间
     def swipe_horizontal(self, x_range_ratios, ym = None):

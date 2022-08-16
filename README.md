@@ -7,7 +7,7 @@ Appium是移动端的自动化测试工具，但是要写python代码；
 
 考虑到部分测试伙伴python能力不足，因此扩展Appium，支持通过yaml配置测试步骤;
 
-框架通过编写简单的yaml, 就可以执行一系列复杂的浏览器操作步骤, 如点击/输入/拖拽/上下滑/左右滑/放大缩小/提取变量/打印变量等，极大的简化了伙伴编写自动化测试脚本的工作量与工作难度，大幅提高人效；
+框架通过编写简单的yaml, 就可以执行一系列复杂的 App 操作步骤, 如点击/输入/拖拽/上下滑/左右滑/放大缩小/提取变量/打印变量等，极大的简化了伙伴编写自动化测试脚本的工作量与工作难度，大幅提高人效；
 
 框架通过提供类似python`for`/`if`/`break`语义的步骤动作，赋予伙伴极大的开发能力与灵活性，能适用于广泛的测试场景。
 
@@ -41,6 +41,9 @@ export PATH="$PATH:/home/shi/.local/bin"
 ```
 
 ## 使用
+1. 先启动 appium
+
+2. 使用
 ```
 # 1 执行单个文件
 AppiumBoot 步骤配置文件.yml
@@ -57,6 +60,7 @@ AppiumBoot 步骤配置目录/step-*.yml
 
 - 如执行 `AppiumBoot example/step-material.yml`:
 你需要先安装[android material组件demo app](https://gitee.com/lizhenghaodamowang/material-components-android);
+效果见[演示视频](https://www.zhihu.com/zvideo/1542517089130147840);
 输出如下:
 ```
 加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-material.yml
@@ -198,6 +202,8 @@ AppiumBoot 步骤配置目录/step-*.yml
 
 [demo](https://github.com/shigebeyond/AppiumBoot/blob/main/example/)
 
+[demo视频](https://www.zhihu.com/zvideo/1542517089130147840)
+
 ## 查找元素的方法
 1. id:
 2. sid: accessibility_id
@@ -308,10 +314,10 @@ swipe_up: 0.55 # 移动幅度比例(占屏幕高度的比例)
 swipe_up: # 默认移动幅度比例为0.5
 ```
 
-12. swipe_down: 下滑(传y坐标)
+12. swipe_down: 下滑(传比例)
 ```yaml
-swipe_down: 100 # y坐标
-swipe_down: # 默认y坐标为中间
+swipe_down: 0.55 # 移动幅度比例(占屏幕高度的比例)
+swipe_down: # 默认移动幅度比例为0.5
 ```
 
 13. swipe_left: 左滑(传y坐标)
@@ -320,10 +326,10 @@ swipe_left: 100 # y坐标
 swipe_left: # 默认y坐标为中间
 ```
 
-14. swipe_right: 右滑(传比例)
+14. swipe_right: 右滑(传y坐标)
 ```yaml
-swipe_right: 0.55 # 移动幅度比例(占屏幕宽度的比例)
-swipe_right: # 默认移动幅度比例为0.5
+swipe_right: 100 # y坐标
+swipe_right: # 默认y坐标为中间
 ```
 
 15. swipe_vertical: 垂直方向(上下)滑动(传比例)
