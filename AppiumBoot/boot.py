@@ -850,11 +850,15 @@ class Boot(object):
 
     # 点击弹框的确定按钮, 如授权弹框的允许
     def alert_accept(self, _):
-        self.driver.switch_to.alert.accept()
+        src = self.driver.page_source
+        if '允许' in src or 'allow' in src:
+            self.driver.switch_to.alert.accept()
 
     # 取消弹框, 如授权弹窗的禁止
     def alert_dismiss(self, _):
-        self.driver.switch_to.alert.dismiss()
+        src = self.driver.page_source
+        if '允许' in src or 'allow' in src:
+            self.driver.switch_to.alert.dismiss()
 
     # 设置基础url
     def base_url(self, url):

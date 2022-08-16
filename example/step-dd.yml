@@ -9,6 +9,10 @@
       appActivity: com.didi.store.activity.WelcomeActivity
       automationName: UiAutomator2
       noReset: true
+      # 授权相关： https://testingbot.com/support/mobile/permission-popups
+      #autoGrantPermissions: 'true' # android自动允许
+      #autoAcceptAlerts: 'true' # ios自动允许
+      #autoDissmissAlerts: 'true' # ios自动禁止
   sleep: 5
   # 4个页签
 #- click_by:
