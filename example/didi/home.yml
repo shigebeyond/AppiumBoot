@@ -1,0 +1,12 @@
+
+# - click_by: #
+#     id: com.didi.store:id/to_order
+#   sleep: 2
+# - click_by: #
+#     xpath: //android.support.v7.app.ActionBar.Tab[@content-desc="全部"]/android.widget.TextView
+# - sleep: 2
+# - swipe_up:
+- sleep: 6
+- click_by:
+    id: com.didi.store:id/to_order
+  sleep: 1

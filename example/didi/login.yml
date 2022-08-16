@@ -1,0 +1,14 @@
+# 登录
+- once:
+#  - moveon_if: boot.exist_by('id', 'com.shikee.shikeeapp:id/button1') # 满足条件则往下走，否则跳出循环
+  - moveon_if_exist_by: # 满足条件则往下走，否则跳出循环
+      id: com.didi.store:id/bt_commit    # 登录页
+  - input_by_id:
+      'com.didi.store:id/et_phone': 18345672901
+      'com.didi.store:id/et_pw': 123456
+  - click_by: # 勾选同意按钮
+      id: com.didi.store:id/img_select
+    sleep: 2
+  - click_by: # 登录
+      id: com.didi.store:id/bt_commit
+    sleep: 2
