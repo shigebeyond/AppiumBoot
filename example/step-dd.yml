@@ -27,7 +27,8 @@
 #    id: com.shikee.shikeeapp:id/tab_myhome_image
 #  sleep: 1
 #  swipe_up:
-- include: didi/login.yml # 登录
-  sleep: 2
-- include: didi/home.yml # 登录
-  sleep: 4
+#- include: didi/login.yml # 登录
+#  sleep: 2
+#- include: didi/home.yml # 登录
+#  sleep: 4
+- include: didi/yuyue.yml # 登录

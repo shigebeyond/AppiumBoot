@@ -12,3 +12,4 @@
   - click_by: # 登录
       id: com.didi.store:id/bt_commit
     sleep: 2
+

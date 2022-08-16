@@ -134,6 +134,7 @@ class Boot(object):
             'extract_by_aid': self.extract_by_aid,
             'extract_by_class': self.extract_by_class,
             'extract_by_eval': self.extract_by_eval,
+            'alert':self.alert,
         }
         set_var('boot', self)
         # 是否在录屏
@@ -1025,6 +1026,9 @@ class Boot(object):
     def extract_by_eval(self, fields):
         return self.extractor.run_eval(fields)
 
+    def alert(self,fields): #//权限允许
+        if '允许' in self.driver.page_source:
+            self.driver.switch_to.alert.accept()
 
 # cli入口
 def main():

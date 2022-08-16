@@ -8,5 +8,25 @@
 # - swipe_up:
 - sleep: 6
 - click_by:
-    id: com.didi.store:id/to_order
-  sleep: 1
+   id: com.didi.store:id/to_order
+- sleep: 2
+- click_by:
+    id: com.didi.store:id/tv_order_store
+- sleep: 2
+- click_by:
+    xpath: //android.support.v7.app.ActionBar.Tab[@content-desc="全部"]/android.widget.TextView
+- sleep: 2
+- swipe_down: 0.3
+- sleep: 1
+- swipe_up:
+- sleep: 2
+- swipe_down: 0.3
+- swipe_down: 0.3
+- swipe_down: 0.3
+- swipe_down: 0.3
+
+- click_by:
+    xpath: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.support.v7.widget.RecyclerView/android.widget.LinearLayout[1]/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.RelativeLayout[2]
+- sleep: 1
+- back:
+- back:
