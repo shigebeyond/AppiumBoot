@@ -105,6 +105,8 @@ class Boot(object):
             'print_performance': self.print_performance,
             'start_recording_screen': self.start_recording_screen,
             'stop_recording_screen': self.stop_recording_screen,
+            'alert_accept': self.alert_accept,
+            'alert_dismiss': self.alert_dismiss,
             'for': self.do_for,
             'once': self.once,
             'break_if': self.break_if,
@@ -134,7 +136,6 @@ class Boot(object):
             'extract_by_aid': self.extract_by_aid,
             'extract_by_class': self.extract_by_class,
             'extract_by_eval': self.extract_by_eval,
-            'alert':self.alert,
         }
         set_var('boot', self)
         # 是否在录屏
@@ -847,6 +848,14 @@ class Boot(object):
         path = self._prepare_save_file({}, path)
         write_byte_file(path, data)
 
+    # 点击弹框的确定按钮, 如授权弹框的允许
+    def alert_accept(self, _):
+        self.driver.switch_to.alert.accept()
+
+    # 取消弹框, 如授权弹窗的禁止
+    def alert_dismiss(self, _):
+        self.driver.switch_to.alert.dismiss()
+
     # 设置基础url
     def base_url(self, url):
         self._base_url = url
@@ -1025,10 +1034,6 @@ class Boot(object):
 
     def extract_by_eval(self, fields):
         return self.extractor.run_eval(fields)
-
-    def alert(self,fields): #//权限允许
-        if '允许' in self.driver.page_source:
-            self.driver.switch_to.alert.accept()
 
 # cli入口
 def main():

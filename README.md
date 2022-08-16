@@ -512,7 +512,17 @@ stop_recording_screen: # 默认视频文件路径为 `record-时间.mp4`
 stop_recording_screen: a.mp4 # 视频文件路径
 ```
 
-43. for: 循环; 
+43. alert_accept: 点击弹框的确定按钮, 如授权弹框的允许; 
+```yaml
+alert_accept: 
+```
+
+44. alert_dismiss: 取消弹框, 如授权弹框的禁止; 
+```yaml
+alert_dismiss: 
+```
+
+45. for: 循环; 
 for动作下包含一系列子步骤，表示循环执行这系列子步骤；变量`for_i`记录是第几次迭代（从1开始）
 ```yaml
 # 循环3次
@@ -530,7 +540,7 @@ for:
     sleep: 2
 ```
 
-44. once: 只执行一次，等价于 `for(1)`; 
+46. once: 只执行一次，等价于 `for(1)`; 
 once 结合 moveon_if，可以模拟 python 的 `if` 语法效果
 ```yaml
 once:
@@ -540,31 +550,31 @@ once:
     sleep: 2
 ```
 
-45. break_if: 满足条件则跳出循环; 
+47. break_if: 满足条件则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 break_if: for_i>2 # 条件表达式，python语法
 ```
 
-46. moveon_if: 满足条件则往下走，否则跳出循环; 
+48. moveon_if: 满足条件则往下走，否则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 moveon_if: for_i<=2 # 条件表达式，python语法
 ```
 
-47. moveon_if_exist_by: 如果检查元素存在 则往下走，否则跳出循环; 
+49. moveon_if_exist_by: 如果检查元素存在 则往下走，否则跳出循环; 
 只能定义在for循环的子步骤中
 ```yaml
 moveon_if_exist_by:
     id: com.shikee.shikeeapp:id/button1
 ```
 
-48. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
+50. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
 ```yaml
 include: part-common.yml
 ```
 
-49. set_vars: 设置变量; 
+51. set_vars: 设置变量; 
 ```yaml
 set_vars:
   name: shi
@@ -572,17 +582,17 @@ set_vars:
   birthday: 5-27
 ```
 
-50. print_vars: 打印所有变量; 
+52. print_vars: 打印所有变量; 
 ```yaml
 print_vars:
 ```
 
-51. base_url: 设置基础url
+53. base_url: 设置基础url
 ```yaml
 base_url: https://www.taobao.com/
 ```
 
-52. get: 发get请求, 但无跳转; 
+54. get: 发get请求, 但无跳转; 
 ```yaml
 get:
     url: $dyn_data_url # url,支持写变量
@@ -590,7 +600,7 @@ get:
       dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
 ```
 
-53. post: 发post请求, 但无跳转; 
+55. post: 发post请求, 但无跳转; 
 ```yaml
 post:
     url: http://admin.jym1.com/store/add_store # url,支持写变量
@@ -601,7 +611,7 @@ post:
       store_logo_url: '$img'
 ```
 
-54. upload: 上传文件; 
+56. upload: 上传文件; 
 ```yaml
 upload: # 上传文件/图片
     url: http://admin.jym1.com/upload/common_upload_img/store_img
@@ -612,7 +622,7 @@ upload: # 上传文件/图片
       img: $.data.url
 ```
 
-55. download: 下载文件; 
+57. download: 下载文件; 
 变量`download_file`记录最新下载的单个文件
 ```yaml
 download:
@@ -621,7 +631,7 @@ download:
     save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-56. recognize_captcha: 识别验证码; 
+58. recognize_captcha: 识别验证码; 
 参数同 `download` 动作， 因为内部就是调用 `download`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -631,7 +641,7 @@ recognize_captcha:
     # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-57. recognize_captcha_element: 识别验证码标签中的验证码; 
+59. recognize_captcha_element: 识别验证码标签中的验证码; 
 参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
 而变量`captcha`记录识别出来的验证码
 ```
