@@ -136,6 +136,7 @@ class Boot(object):
             'extract_by_aid': self.extract_by_aid,
             'extract_by_class': self.extract_by_class,
             'extract_by_eval': self.extract_by_eval,
+            'exec': self.exec,
         }
         set_var('boot', self)
         # 是否在录屏
@@ -1038,6 +1039,11 @@ class Boot(object):
 
     def extract_by_eval(self, fields):
         return self.extractor.run_eval(fields)
+
+    # 执行命令
+    def exec(self, cmd):
+        output = os.popen(cmd).read()
+        log.debug(f"执行命令: {cmd} | 结果: {output}")
 
 # cli入口
 def main():
