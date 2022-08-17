@@ -205,10 +205,10 @@ AppiumBoot 步骤配置目录/step-*.yml
 [demo视频](https://www.zhihu.com/zvideo/1542517089130147840)
 
 ## 查找元素的方法
-1. id:
-2. sid: accessibility_id
-3. class: 
-4. xpath:
+1. id: 根据 name 属性值来查找, 对应`By.ID`
+2. sid: 根据 accessibility_id 属性值来查找, 对应`By.ACCESSIBILITY_ID`
+3. class: 根据类名来查找, 对应`By.CLASS_NAME`
+4. xpath: 根据 xpath 来查找, 对应`By.XPATH`
 
 ## 配置详解
 支持通过yaml来配置执行的步骤;
