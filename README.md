@@ -207,7 +207,7 @@ AppiumBoot 步骤配置目录/step-*.yml
 [demo视频](https://www.zhihu.com/zvideo/1542517089130147840)
 
 ## 查找元素的方法
-1. id: 根据 name 属性值来查找, 对应`By.ID`
+1. id: 根据 id 属性值来查找, 对应`By.ID`
 2. sid: 根据 accessibility_id 属性值来查找, 对应`By.ACCESSIBILITY_ID`
 3. class: 根据类名来查找, 对应`By.CLASS_NAME`
 4. xpath: 根据 xpath 来查找, 对应`By.XPATH`
@@ -750,6 +750,8 @@ validate_by_jsonpath:
 7. `startswith`: 以子串开头
 8. `endswith`: 以子串结尾
 9. `regex_match`: 正则匹配
+10. `exists`: 元素存在
+11. `not_exists`: 元素不存在
 
 ## 提取器
 主要是为了从页面或响应中提取变量, 根据不同场景有2种写法

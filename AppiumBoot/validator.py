@@ -14,15 +14,17 @@ class Validator(ResponseWrap):
         super(Validator, self).__init__(driver, res)
         # 校验函数映射
         self.funcs = {
-            '=': lambda val, param: val == param,
-            '>': lambda val, param: float(val) > param,
-            '<': lambda val, param: float(val) < param,
-            '>=': lambda val, param: float(val) >= param,
-            '<=': lambda val, param: float(val) <= param,
-            'contains': lambda val, param: param in val,
-            'startswith': lambda val, param: val.startswith(param),
-            'endswith': lambda val, param: val.endswith(param),
-            'regex_match': lambda val, param: re.search(param, val) != None,
+            '=': lambda val, param, ex: ex == None and val == param,
+            '>': lambda val, param, ex: ex == None and float(val) > param,
+            '<': lambda val, param, ex: ex == None and float(val) < param,
+            '>=': lambda val, param, ex: ex == None and float(val) >= param,
+            '<=': lambda val, param, ex: ex == None and float(val) <= param,
+            'contains': lambda val, param, ex: ex == None and param in val,
+            'startswith': lambda val, param, ex: ex == None and val.startswith(param),
+            'endswith': lambda val, param, ex: ex == None and val.endswith(param),
+            'regex_match': lambda val, param, ex: ex == None and re.search(param, val) != None,
+            'exists': lambda val, param, ex: ex == None,
+            'not_exist': lambda val, param, ex: ex != None,
         }
 
     # 执行校验
@@ -55,10 +57,14 @@ class Validator(ResponseWrap):
     # 执行单个字段的校验
     def run_field(self, type, path, rules):
         # 获得字段值
-        val = self._get_val_by(type, path)
+        val = ex = None
+        try:
+            val = self._get_val_by(type, path)
+        except Exception as e:
+            ex = e
         # 逐个函数校验
         for func, param in rules.items():
-            b = self.run_func(func, val, param)
+            b = self.run_func(func, val, param, ex)
             if b == False:
                 raise Exception(f"响应元素[{path}]不满足校验条件: {val} {func} '{param}'")
 
@@ -67,11 +73,12 @@ class Validator(ResponseWrap):
     :param func 函数名
     :param val 校验的值
     :param param 参数
+    :param ex 查找元素异常
     '''
-    def run_func(self, func, val, param):
+    def run_func(self, func, val, param, ex):
         if func not in self.funcs:
             raise Exception(f'无效校验函数: {func}')
         # 调用校验函数
         log.debug(f"处理校验函数: {func}={param}")
         func = self.funcs[func]
-        return func(val, param)
+        return func(val, param, ex)
