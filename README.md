@@ -43,7 +43,9 @@ export PATH="$PATH:/home/shi/.local/bin"
 ## 使用
 1. 先启动 appium
 
-2. 使用
+2. 修改配置文件(yml)中的 `init_driver` 动作的参数, 如平台、app包等
+
+3. 使用
 ```
 # 1 执行单个文件
 AppiumBoot 步骤配置文件.yml
