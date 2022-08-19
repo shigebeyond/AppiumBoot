@@ -112,6 +112,7 @@ class Boot(object):
             'break_if': self.break_if,
             'moveon_if': self.moveon_if,
             'moveon_if_exist_by': self.moveon_if_exist_by,
+            'break_if_exist_by': self.break_if_exist_by,
             'break_if_not_exist_by': self.break_if_not_exist_by,
             'include': self.include,
             'set_vars': self.set_vars,
@@ -333,6 +334,11 @@ class Boot(object):
     # 跳出for循环
     def break_if_not_exist_by(self, config):
         if not self.exist_by_any(config):
+            raise BreakException(config)
+
+    # 跳出for循环
+    def break_if_exist_by(self, config):
+        if self.exist_by_any(config):
             raise BreakException(config)
 
     # 加载并执行其他步骤文件

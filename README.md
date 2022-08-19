@@ -553,30 +553,37 @@ once:
 ```
 
 47. break_if: 满足条件则跳出循环; 
-只能定义在for循环的子步骤中
+只能定义在for/once循环的子步骤中
 ```yaml
 break_if: for_i>2 # 条件表达式，python语法
 ```
 
 48. moveon_if: 满足条件则往下走，否则跳出循环; 
-只能定义在for循环的子步骤中
+只能定义在for/once循环的子步骤中
 ```yaml
 moveon_if: for_i<=2 # 条件表达式，python语法
 ```
 
 49. moveon_if_exist_by: 如果检查元素存在 则往下走，否则跳出循环; 
-只能定义在for循环的子步骤中
+只能定义在for/once循环的子步骤中
 ```yaml
 moveon_if_exist_by:
     id: com.shikee.shikeeapp:id/button1
 ```
 
-50. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
+50. break_if_exist_by: 如果检查元素存在 则跳出循环，否则往下走; 
+只能定义在for/once循环的子步骤中
+```yaml
+break_if_exist_by:
+    id: button1
+```
+
+51. include: 包含其他步骤文件，如记录公共的步骤，或记录配置数据(如用户名密码); 
 ```yaml
 include: part-common.yml
 ```
 
-51. set_vars: 设置变量; 
+52. set_vars: 设置变量; 
 ```yaml
 set_vars:
   name: shi
@@ -584,17 +591,17 @@ set_vars:
   birthday: 5-27
 ```
 
-52. print_vars: 打印所有变量; 
+53. print_vars: 打印所有变量; 
 ```yaml
 print_vars:
 ```
 
-53. base_url: 设置基础url
+54. base_url: 设置基础url
 ```yaml
 base_url: https://www.taobao.com/
 ```
 
-54. get: 发get请求, 但无跳转; 
+55. get: 发get请求, 但无跳转; 
 ```yaml
 get:
     url: $dyn_data_url # url,支持写变量
@@ -602,7 +609,7 @@ get:
       dyn_data: "json.loads(response.text[16:-1])" # 变量response是响应对象
 ```
 
-55. post: 发post请求, 但无跳转; 
+56. post: 发post请求, 但无跳转; 
 ```yaml
 post:
     url: http://admin.jym1.com/store/add_store # url,支持写变量
@@ -613,7 +620,7 @@ post:
       store_logo_url: '$img'
 ```
 
-56. upload: 上传文件; 
+57. upload: 上传文件; 
 ```yaml
 upload: # 上传文件/图片
     url: http://admin.jym1.com/upload/common_upload_img/store_img
@@ -624,7 +631,7 @@ upload: # 上传文件/图片
       img: $.data.url
 ```
 
-57. download: 下载文件; 
+58. download: 下载文件; 
 变量`download_file`记录最新下载的单个文件
 ```yaml
 download:
@@ -633,7 +640,7 @@ download:
     save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-58. recognize_captcha: 识别验证码; 
+59. recognize_captcha: 识别验证码; 
 参数同 `download` 动作， 因为内部就是调用 `download`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -643,7 +650,7 @@ recognize_captcha:
     # save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-59. recognize_captcha_element: 识别验证码标签中的验证码; 
+60. recognize_captcha_element: 识别验证码标签中的验证码; 
 参数同 `screenshot_element_by` 动作， 因为内部就是调用 `screenshot_element_by`;
 而变量`captcha`记录识别出来的验证码
 ```
@@ -656,7 +663,7 @@ recognize_captcha_element:
     #save_file: test.jpg # 保存的文件名，默认为url中最后一级的文件名
 ```
 
-60. exec: 执行命令, 可用于执行 HttpBoot/SeleniumBoot/AppiumBoot/MiniumBoot 等命令，以便打通多端的用例流程
+61. exec: 执行命令, 可用于执行 HttpBoot/SeleniumBoot/AppiumBoot/MiniumBoot 等命令，以便打通多端的用例流程
 ```yaml
 exec: ls
 exec: SeleniumBoot test.yml
