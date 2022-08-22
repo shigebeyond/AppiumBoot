@@ -66,7 +66,7 @@ class Validator(ResponseWrap):
         for func, param in rules.items():
             b = self.run_func(func, val, param, ex)
             if b == False:
-                raise Exception(f"响应元素[{path}]不满足校验条件: {val} {func} '{param}'")
+                raise AssertionError(f"响应元素[{path}]不满足校验条件: {val} {func} '{param}'")
 
     '''
     执行单个函数：就是调用函数
