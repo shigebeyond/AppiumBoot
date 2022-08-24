@@ -801,6 +801,8 @@ extract_by_class:
 extract_by_xpath:
   # 变量名: xpath路径
   goods_id: /hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout
+  # 获得元素的属性
+  goods_img_element: /hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout[1]/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.RelativeLayout[1]/android.widget.FrameLayout/android.widget.RelativeLayout/androidx.viewpager.widget.ViewPager/android.widget.ImageView/@class
 ```
 
 5. extract_by_css:
@@ -809,6 +811,7 @@ extract_by_xpath:
 extract_by_css:
   # 变量名: css selector 模式
   goods_id: table>tbody>tr:nth-child(1)>td:nth-child(1) # 第一行第一列
+  url: //*[@id="1"]/div/div/h3/a/@href # 获得<a>的href属性
 ```
 
 6. extract_by_jsonpath:
