@@ -301,6 +301,7 @@ class Boot(object):
             n = sys.maxsize # 最大int，等于无限循环次数
             label = f"for(∞)"
         log.debug(f"-- 开始循环: {label} -- ")
+        last_i = get_var('for_i', False)
         try:
             for i in range(n):
                 # i+1表示迭代次数比较容易理解
@@ -311,6 +312,8 @@ class Boot(object):
             log.debug(f"-- 跳出循环: {label}, 跳出条件: {e.condition} -- ")
         else:
             log.debug(f"-- 终点循环: {label} -- ")
+        finally:
+            set_var('for_i', last_i)
 
     # 执行一次子步骤，相当于 for(1)
     def once(self, steps):
