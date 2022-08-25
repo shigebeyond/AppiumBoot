@@ -269,6 +269,8 @@ class Boot(object):
             }
         }
         '''
+        # 替换配置中的变量
+        config = replace_var(config, False)
         if 'executor' in config:
             executor = config['executor']
         else:
