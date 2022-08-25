@@ -23,7 +23,7 @@ class Validator(ResponseWrap):
             'startswith': lambda val, param, ex: ex == None and val.startswith(param),
             'endswith': lambda val, param, ex: ex == None and val.endswith(param),
             'regex_match': lambda val, param, ex: ex == None and re.search(param, val) != None,
-            'exists': lambda val, param, ex: ex == None,
+            'exist': lambda val, param, ex: ex == None,
             'not_exist': lambda val, param, ex: ex != None,
         }
 

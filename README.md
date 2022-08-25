@@ -750,8 +750,8 @@ validate_by_jsonpath:
 7. `startswith`: 以子串开头
 8. `endswith`: 以子串结尾
 9. `regex_match`: 正则匹配
-10. `exists`: 元素存在
-11. `not_exists`: 元素不存在
+10. `exist`: 元素存在
+11. `not_exist`: 元素不存在
 
 ## 提取器
 主要是为了从页面或响应中提取变量, 根据不同场景有2种写法
