@@ -4,15 +4,13 @@ import ast
 from setuptools import setup, find_packages
 from os.path import dirname, join, abspath
 import setuptools
+from pyutilb.util import *
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 # 读元数据：author/version/description
-with open('AppiumBoot/__init__.py', 'rb') as f:
-    text = f.read().decode('utf-8')
-    items = re.findall(r'__(\w+)__ = "(.+)"', text)
-    meta = dict(items)
+meta = read_init_file_meta('AppiumBoot/__init__.py')
 
 # 读依赖
 with open('requirements.txt', 'rb') as f:

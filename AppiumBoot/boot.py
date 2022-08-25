@@ -1060,12 +1060,14 @@ class Boot(object):
 def main():
     # 基于yaml的执行器
     boot = Boot()
+    # 读元数据：author/version/description
+    dir = os.path.dirname(__file__)
+    meta = read_init_file_meta(dir + os.sep + '__init__.py')
+    # 步骤配置的yaml
+    step_files = parse_cmd('AppiumBoot', meta['version'])
+    if len(step_files) == 0:
+        raise Exception("未指定步骤配置文件或目录")
     try:
-        # 步骤配置的yaml
-        if len(sys.argv) > 1:
-            step_files = sys.argv[1:]
-        else:
-            raise Exception("未指定步骤配置文件或目录")
         # 执行yaml配置的步骤
         boot.run(step_files)
     except Exception as ex:
