@@ -240,7 +240,7 @@ class Boot(object):
     '''
     def run_action(self, action, param):
         if 'for(' in action:
-            n = int(action[4:-1])
+            n = self.parse_for_n(action)
             self.do_for(param, n)
             return
 
@@ -295,27 +295,54 @@ class Boot(object):
             self.package = None
 
     # for循环
+    # 解析动作名中的for(n)中的n
+    def parse_for_n(self, action):
+        n = action[4:-1]
+        # 1 数字
+        if n.isdigit():
+            return int(n)
+
+        # 2 变量名, 必须是list类型
+        n = get_var(n, False)
+        if n == None or not isinstance(n, list):
+            raise Exception(f'for({n})括号中的参数必须要是数字或list类型的变量名')
+        return n
+
+    # for循环
     # :param steps 每个迭代中要执行的步骤
-    # :param n 循环次数
+    # :param n 循环次数/循环的列表
     def do_for(self, steps, n = None):
         label = f"for({n})"
+        # 循环次数
         if n == None:
             n = sys.maxsize # 最大int，等于无限循环次数
             label = f"for(∞)"
+        # 循环的列表值
+        items = None
+        if isinstance(n, list):
+            items = n
+            n = len(items)
         log.debug(f"-- 开始循环: {label} -- ")
-        last_i = get_var('for_i', False)
+        last_i = get_var('for_i', False) # 旧的索引
+        last_v = get_var('for_v', False) # 旧的元素
         try:
             for i in range(n):
                 # i+1表示迭代次数比较容易理解
                 log.debug(f"第{i+1}次迭代")
-                set_var('for_i', i+1)
+                set_var('for_i', i+1) # 更新索引
+                if items == None:
+                    v = None
+                else:
+                    v = items[i]
+                set_var('for_v', v) # 更新元素
                 self.run_steps(steps)
         except BreakException as e:  # 跳出循环
             log.debug(f"-- 跳出循环: {label}, 跳出条件: {e.condition} -- ")
         else:
             log.debug(f"-- 终点循环: {label} -- ")
         finally:
-            set_var('for_i', last_i)
+            set_var('for_i', last_i) # 恢复索引
+            set_var('for_v', last_v) # 恢复元素
 
     # 执行一次子步骤，相当于 for(1)
     def once(self, steps):
