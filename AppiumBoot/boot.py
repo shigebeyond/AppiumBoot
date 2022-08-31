@@ -280,6 +280,8 @@ class Boot(object):
         desired_caps = config['desired_caps']
         if 'appPackage' in desired_caps:
             package = desired_caps['appPackage']
+        # 记录ios/android平台
+        self.platform = desired_caps['platformName'].lower()
         # driver
         self.driver = webdriver.Remote(executor, desired_caps)
         # 当前页面的校验器, 依赖于driver
@@ -293,6 +295,14 @@ class Boot(object):
             self.driver.quit()
             self.driver = None
             self.package = None
+
+    @property
+    def is_android(self):
+        return self.platform == 'android'
+
+    @property
+    def is_ios(self):
+        return self.platform == 'ios'
 
     # for循环
     # 解析动作名中的for(n)中的n
