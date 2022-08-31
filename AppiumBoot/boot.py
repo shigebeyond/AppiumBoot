@@ -304,8 +304,8 @@ class Boot(object):
 
         # 2 变量名, 必须是list类型
         n = get_var(n, False)
-        if n == None or not isinstance(n, list):
-            raise Exception(f'for({n})括号中的参数必须要是数字或list类型的变量名')
+        if n == None or not (isinstance(n, list) or isinstance(n, int)):
+            raise Exception(f'for({n})括号中的变量类型必须int或list类型')
         return n
 
     # for循环
