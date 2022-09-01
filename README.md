@@ -1,5 +1,7 @@
 [GitHub](https://github.com/shigebeyond/AppiumBoot) | [Gitee](https://gitee.com/shigebeyond/AppiumBoot)
 
+[English document](blob/master/README.en.md)
+
 # AppiumBoot - yaml驱动Appium测试
 
 ## 概述
@@ -65,101 +67,101 @@ AppiumBoot 步骤配置目录/step-*.yml
 效果见[演示视频](https://www.zhihu.com/zvideo/1542517089130147840);
 输出如下:
 ```
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-material.yml
-处理动作: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'io.material.catalog', 'appActy': 'io.material.catalog.main.MainActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
-处理动作: include=material/comp1.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp1.yml
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
-处理动作: swipe_up=None
-处理动作: sleep=1
-处理动作: swipe_down=None
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/end'}
-处理动作: sleep=2
-处理动作: click_by={'id': 'io.material.catalog:id/center'}
-处理动作: sleep=2
-处理动作: click_by={'id': 'io.material.catalog:id/attach_toggle'}
-处理动作: sleep=2
-处理动作: click_by={'id': 'io.material.catalog:id/center'}
-处理动作: include=material/back.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
-处理动作: sleep=1
-处理动作: back=None
-处理动作: sleep=1
-处理动作: back=None
-处理动作: include=material/comp2.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp2.yml
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout'}
-处理动作: sleep=1
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
-处理动作: click_by={'aid': 'Page 2'}
-处理动作: click_by={'aid': 'Theme Switcher'}
-处理动作: sleep=1
-处理动作: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Green"])[1]'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/apply_button'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/add_button'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/remove_button'}
-处理动作: sleep=2
-处理动作: back=None
-处理动作: sleep=1
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[3]'}
-处理动作: sleep=1
-处理动作: click_by={'aid': 'Alarm'}
-处理动作: sleep=1
-处理动作: click_by={'aid': 'Clock'}
-处理动作: sleep=1
-处理动作: click_by={'aid': 'Timer'}
-处理动作: sleep=1
-处理动作: click_by={'aid': 'Stopwatch'}
-处理动作: include=material/back.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
-处理动作: sleep=1
-处理动作: back=None
-处理动作: sleep=1
-处理动作: back=None
-处理动作: include=material/comp3.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp3.yml
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.widget.LinearLayout'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
-处理动作: print=非全屏的上拉
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/step-material.yml
+handle action: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'io.material.catalog', 'appActy': 'io.material.catalog.main.MainActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
+handle action: include=material/comp1.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/comp1.yml
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
+handle action: swipe_up=None
+handle action: sleep=1
+handle action: swipe_down=None
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/end'}
+handle action: sleep=2
+handle action: click_by={'id': 'io.material.catalog:id/center'}
+handle action: sleep=2
+handle action: click_by={'id': 'io.material.catalog:id/attach_toggle'}
+handle action: sleep=2
+handle action: click_by={'id': 'io.material.catalog:id/center'}
+handle action: include=material/back.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+handle action: sleep=1
+handle action: back=None
+handle action: sleep=1
+handle action: back=None
+handle action: include=material/comp2.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/comp2.yml
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout'}
+handle action: sleep=1
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
+handle action: click_by={'aid': 'Page 2'}
+handle action: click_by={'aid': 'Theme Switcher'}
+handle action: sleep=1
+handle action: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Green"])[1]'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/apply_button'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/add_button'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/remove_button'}
+handle action: sleep=2
+handle action: back=None
+handle action: sleep=1
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.RelativeLayout[3]'}
+handle action: sleep=1
+handle action: click_by={'aid': 'Alarm'}
+handle action: sleep=1
+handle action: click_by={'aid': 'Clock'}
+handle action: sleep=1
+handle action: click_by={'aid': 'Timer'}
+handle action: sleep=1
+handle action: click_by={'aid': 'Stopwatch'}
+handle action: include=material/back.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+handle action: sleep=1
+handle action: back=None
+handle action: sleep=1
+handle action: back=None
+handle action: include=material/comp3.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/comp3.yml
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[3]/android.widget.LinearLayout'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/cat_demo_landing_row_root'}
+handle action: print=非全屏的上拉
 非全屏的上拉
-处理动作: sleep=1
-处理动作: swipe_up=None
-处理动作: sleep=1
-处理动作: swipe_vertical=0.55,0.8
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/cat_fullscreen_switch'}
-处理动作: sleep=1
-处理动作: print=全屏的上拉
+handle action: sleep=1
+handle action: swipe_up=None
+handle action: sleep=1
+handle action: swipe_vertical=0.55,0.8
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/cat_fullscreen_switch'}
+handle action: sleep=1
+handle action: print=全屏的上拉
 全屏的上拉
-处理动作: swipe_up=None
-处理动作: sleep=1
-处理动作: swipe_down=None
-处理动作: include=material/back.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
-处理动作: sleep=1
-处理动作: back=None
-处理动作: sleep=1
-处理动作: back=None
-处理动作: include=material/comp4.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/material/comp4.yml
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout'}
-处理动作: sleep=1
-处理动作: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
-处理动作: click_by={'aid': 'Theme Switcher'}
-处理动作: sleep=1
-处理动作: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Yellow"])[1]'}
-处理动作: sleep=1
-处理动作: click_by={'id': 'io.material.catalog:id/apply_button'}
-处理动作: click_by={'id': 'io.material.catalog:id/material_button'}
-处理动作: sleep=1
-处理动作: back=None
+handle action: swipe_up=None
+handle action: sleep=1
+handle action: swipe_down=None
+handle action: include=material/back.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/back.yml
+handle action: sleep=1
+handle action: back=None
+handle action: sleep=1
+handle action: back=None
+handle action: include=material/comp4.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/material/comp4.yml
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[4]/android.widget.LinearLayout'}
+handle action: sleep=1
+handle action: click_by={'xpath': '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/aid.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout'}
+handle action: click_by={'aid': 'Theme Switcher'}
+handle action: sleep=1
+handle action: click_by={'xpath': '(//android.widget.RadioButton[@content-desc="Yellow"])[1]'}
+handle action: sleep=1
+handle action: click_by={'id': 'io.material.catalog:id/apply_button'}
+handle action: click_by={'id': 'io.material.catalog:id/material_button'}
+handle action: sleep=1
+handle action: back=None
 ......
 ```
 命令会自动打开[android material组件demo app](https://gitee.com/lizhenghaodamowang/material-components-android)，并按照步骤配置文件的描述来执行动作，如下拉、上拉、左滑、点击按钮等，一个个组件页面去操作
@@ -168,29 +170,29 @@ AppiumBoot 步骤配置目录/step-*.yml
 你要先安装众划算app;
 输出如下:
 ```
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/step-zhs.yml
-处理动作: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'com.zhs.zhonghuasuanapp', 'apivity': 'com.zhs.activity.StartActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
-处理动作: sleep=7
-处理动作: click_by_if_exist={'id': 'com.zhs.zhonghuasuanapp:id/img_start'}
-处理动作: start_recording_screen=None
-处理动作: swipe_up=None
-处理动作: include=zhs/login.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/zhs/login.yml
-处理动作: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_my_image'}
-处理动作: sleep=2
-处理动作: once=[{'moveon_if': "boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')", 'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/tv_account_login'}, 'sleep': 2}, {'input_by_id': {'com.zhsnghuasuanapp:id/edit_login_username': 'shigebeyond', 'com.zhs.zhonghuasuanapp:id/edit_login_password': 'shige123'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/box_user_agreement'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/login_submit'}, 'sleep': 4}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/btn_i_know'}}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/tv_hid_guid'}}]
--- 开始循环: for(1) -- 
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/step-zhs.yml
+handle action: init_driver={'executor': 'http://localhost:4723/wd/hub', 'desired_caps': {'platformName': 'Android', 'platformVersion': '9', 'deviceName': 'f978cc97', 'appPackage': 'com.zhs.zhonghuasuanapp', 'apivity': 'com.zhs.activity.StartActivity', 'automationName': 'UiAutomator2', 'noReset': True}}
+handle action: sleep=7
+handle action: click_by_if_exist={'id': 'com.zhs.zhonghuasuanapp:id/img_start'}
+handle action: start_recording_screen=None
+handle action: swipe_up=None
+handle action: include=zhs/login.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/zhs/login.yml
+handle action: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_my_image'}
+handle action: sleep=2
+handle action: once=[{'moveon_if': "boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')", 'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/tv_account_login'}, 'sleep': 2}, {'input_by_id': {'com.zhsnghuasuanapp:id/edit_login_username': 'shigebeyond', 'com.zhs.zhonghuasuanapp:id/edit_login_password': 'shige123'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/box_user_agreement'}}, {'click_by': {'id': 'com.zhs.zhonghuasuanapp:id/login_submit'}, 'sleep': 4}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/btn_i_know'}}, {'click_by_if_exist': {'id': 'com.zhs.zhonghuasuanapp:id/tv_hid_guid'}}]
+-- For loop start: for(1) -- 
 第1次迭代
-处理动作: moveon_if=boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')
--- 跳出循环: for(1), 跳出条件: not (boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')) -- 
-处理动作: sleep=2
-处理动作: include=zhs/apply.yml
-加载并执行步骤文件: /ohome/shi/code/python/AppiumBoot/example/zhs/apply.yml
-处理动作: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_new_image'}
-处理动作: sleep=4
-处理动作: swipe_up=None
-处理动作: sleep=2
-处理动作: swipe_down=None
+handle action: moveon_if=boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')
+-- For loop break: for(1), break condition: not (boot.exist_by('id', 'com.zhs.zhonghuasuanapp:id/tv_account_login')) -- 
+handle action: sleep=2
+handle action: include=zhs/apply.yml
+Load and run step file: /ohome/shi/code/python/AppiumBoot/example/zhs/apply.yml
+handle action: click_by={'id': 'com.zhs.zhonghuasuanapp:id/tab_new_image'}
+handle action: sleep=4
+handle action: swipe_up=None
+handle action: sleep=2
+handle action: swipe_down=None
 ......
 ```
 命令会自动打开众划算app，并按照步骤配置文件的描述来执行动作，如下拉、上拉、左滑、点击按钮等

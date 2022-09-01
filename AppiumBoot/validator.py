@@ -66,7 +66,7 @@ class Validator(ResponseWrap):
         for func, param in rules.items():
             b = self.run_func(func, val, param, ex)
             if b == False:
-                raise AssertionError(f"响应元素[{path}]不满足校验条件: {val} {func} '{param}'")
+                raise AssertionError(f"Response element [{path}] not meet validate condition: {val} {func} '{param}'")
 
     '''
     执行单个函数：就是调用函数
@@ -77,8 +77,8 @@ class Validator(ResponseWrap):
     '''
     def run_func(self, func, val, param, ex):
         if func not in self.funcs:
-            raise Exception(f'无效校验函数: {func}')
+            raise Exception(f'Invalid validate function: {func}')
         # 调用校验函数
-        log.debug(f"处理校验函数: {func}={param}")
+        log.debug(f"Call validate function: {func}={param}")
         func = self.funcs[func]
         return func(val, param, ex)
