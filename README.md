@@ -261,13 +261,14 @@ ${data.msg} 多级变量, 用 ${ 与 } 包含
 
 函数格式:
 ```
-${random_str(6)} 支持调用函数，目前仅支持3个函数: random_str/random_int/incr
+${random_str(6)} 支持调用函数，目前仅支持以下几个函数: random_str/random_int/random_element/incr
 ```
 
 函数罗列:
 ```
 random_str(n): 随机字符串，参数n是字符个数
 random_int(n): 随机数字，参数n是数字个数
+random_element(var): 从list中随机挑选一个元素，参数var是list类型的变量名
 incr(key): 自增值，从1开始，参数key表示不同的自增值，不同key会独立自增
 ```
 
