@@ -7,7 +7,7 @@ import os
 import fnmatch
 from pathlib import Path
 import requests
-from pyutilb import log, YamlBoot, ocr_youdao
+from pyutilb import log, YamlBoot, BreakException, ocr_youdao
 from pyutilb.util import *
 import base64
 from AppiumBoot.validator import Validator
@@ -36,10 +36,6 @@ def get_text_or_content(self):
     return self.get_attribute("content-desc")
 WebElement.get_text_or_content = get_text_or_content
 
-# 跳出循环的异常
-class BreakException(Exception):
-    def __init__(self, condition):
-        self.condition = condition # 跳转条件
 
 # appium基于yaml的启动器
 class Boot(YamlBoot):
