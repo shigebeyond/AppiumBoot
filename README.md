@@ -27,6 +27,12 @@ Appium是移动端的自动化测试工具，但是要写python代码；
 7. 支持类似python`for`/`if`/`break`语义的步骤动作，灵活适应各种场景
 8. 支持`include`引用其他的yaml配置文件，以便解耦与复用
 
+## 同类yaml驱动测试框架
+[HttpBoot](https://github.com/shigebeyond/HttpBoot)
+[SeleniumBoot](https://github.com/shigebeyond/SeleniumBoot)
+[MiniumBoot](https://github.com/shigebeyond/MiniumBoot)
+[ExcelBoot](https://github.com/shigebeyond/ExcelBoot)
+
 ## todo
 1. 支持更多的动作
 
