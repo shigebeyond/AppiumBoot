@@ -924,7 +924,7 @@ def main():
     dir = os.path.dirname(__file__)
     meta = read_init_file_meta(dir + os.sep + '__init__.py')
     # 步骤配置的yaml
-    step_files = parse_cmd('AppiumBoot', meta['version'])
+    step_files, option = parse_cmd('AppiumBoot', meta['version'])
     if len(step_files) == 0:
         raise Exception("Miss step config file or directory")
     try:
