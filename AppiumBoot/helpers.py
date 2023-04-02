@@ -2,7 +2,7 @@ import os
 import sys
 from selenium.common.exceptions import InvalidSessionIdException
 from sauceclient import SauceClient
-from pyutilb import log
+from pyutilb.log import log
 
 sauce = None
 if os.getenv('SAUCE_LABS') and os.getenv('SAUCE_USERNAME') and os.getenv('SAUCE_ACCESS_KEY'):

@@ -5,7 +5,7 @@ import re
 from AppiumBoot.response_wrapper import ResponseWrap
 from selenium import webdriver
 from requests import Response
-from pyutilb import log
+from pyutilb.log import log
 
 # 校验器
 class Validator(ResponseWrap):

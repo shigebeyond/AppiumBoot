@@ -7,7 +7,7 @@ from AppiumBoot.response_wrapper import ResponseWrap
 from pyutilb.util import *
 import json # eval 可能会用到
 import re
-from pyutilb import log
+from pyutilb.log import log
 
 # 抽取器
 class Extractor(ResponseWrap):
