@@ -943,7 +943,9 @@ def main():
         log.error(f"Exception occurs: current step file is {boot.step_file}, current activity is {activity}", exc_info = ex)
         raise ex
     finally:
-        boot.close_driver()
+        # 关闭app
+        if option.autoclose:
+            boot.close_driver()
 
 if __name__ == '__main__':
     main()

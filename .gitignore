@@ -8,3 +8,4 @@ build/
 AppiumBoot.egg-info/
 dist/
 boot.log*
+stat.yml

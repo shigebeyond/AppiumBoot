@@ -52,7 +52,7 @@ class Extractor(ResponseWrap):
     def run_eval(self, fields):
         for var, expr in fields.items():
             # 获得字段值
-            val = eval(expr, globals(), bvars) # 丢失本地与全局变量, 如引用不了json模块
+            val = eval(expr, globals(), get_vars()) # 丢失本地与全局变量, 如引用不了json模块
             # 抽取单个字段
             set_var(var, val)
             log.debug(f"Extract variable from response: {var}={val}")
