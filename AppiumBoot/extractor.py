@@ -5,6 +5,7 @@ from requests import Response
 from selenium import webdriver
 from AppiumBoot.response_wrapper import ResponseWrap
 from pyutilb.util import *
+from pyutilb.file import *
 import json # eval 可能会用到
 import re
 from pyutilb.log import log

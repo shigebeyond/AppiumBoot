@@ -10,6 +10,8 @@ import requests
 from pyutilb import YamlBoot, BreakException, ocr_youdao
 from pyutilb.log import log
 from pyutilb.util import *
+from pyutilb.file import *
+from pyutilb.cmd import *
 import base64
 from AppiumBoot.validator import Validator
 from AppiumBoot.extractor import Extractor

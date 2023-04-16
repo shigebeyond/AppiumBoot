@@ -5,6 +5,8 @@ from setuptools import setup, find_packages
 from os.path import dirname, join, abspath
 import setuptools
 from pyutilb.util import *
+from pyutilb.file import *
+from pyutilb.cmd import *
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()

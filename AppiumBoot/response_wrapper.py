@@ -3,6 +3,7 @@
 
 import re
 from pyutilb.util import *
+from pyutilb.file import *
 from lxml import etree
 from requests import Response
 from selenium import webdriver
