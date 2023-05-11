@@ -79,6 +79,6 @@ class Validator(ResponseWrap):
         if func not in self.funcs:
             raise Exception(f'Invalid validate function: {func}')
         # 调用校验函数
-        log.debug(f"Call validate function: {func}={param}")
+        log.debug(f"Call validate function: %s=%s", func, param)
         func = self.funcs[func]
         return func(val, param, ex)

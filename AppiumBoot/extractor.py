@@ -47,7 +47,7 @@ class Extractor(ResponseWrap):
             val = self._get_val_by(type, path)
             # 抽取单个字段
             set_var(var, val)
-            log.debug(f"Extract variable from response: {var}={val}")
+            log.debug(f"Extract variable from response: %s=%s", var, val)
 
     # 执行eval类型的抽取
     def run_eval(self, fields):
@@ -56,5 +56,5 @@ class Extractor(ResponseWrap):
             val = eval(expr, globals(), get_vars()) # 丢失本地与全局变量, 如引用不了json模块
             # 抽取单个字段
             set_var(var, val)
-            log.debug(f"Extract variable from response: {var}={val}")
+            log.debug(f"Extract variable from response: %s=%s", var, val)
 

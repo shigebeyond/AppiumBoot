@@ -270,7 +270,7 @@ class Boot(YamlBoot):
             try:
                 ele = self.find_by(type, name)
             except Exception as ex:  # 找不到元素
-                log.error(f"Input element not found{name}", exc_info = ex)
+                log.error(f"Input element not found: %s", name, exc_info = ex)
                 continue
 
             # ele.set_value(value)
@@ -384,7 +384,7 @@ class Boot(YamlBoot):
         y1 = int(h * float(y1_ratio))
         y2 = int(h * float(y2_ratio))
         duration = 0.1 * 1000
-        log.info(f"xm={xm}, y1={y1}, xm={xm}, y2={y2}, ")
+        log.info(f"xm=%s, y1=%s, xm=%s, y2=%s, ", xm, y1, xm, y2)
         self.driver.swipe(xm, y1, xm, y2, duration)
 
     # 水平方向(左右)滑动 -- 多次调用多次滑,就算参数一样
@@ -850,7 +850,7 @@ class Boot(YamlBoot):
         # 设置变量
         set_var('download_file', save_file)
         self.downloaded_files[url] = save_file
-        log.debug(f"Dowload file: url is {url}, save path is{save_file}")
+        log.debug(f"Dowload file: url is %s, save path is %s", url, save_file)
         return save_file
 
     # 识别url中的验证码
@@ -876,7 +876,7 @@ class Boot(YamlBoot):
         captcha = ocr_youdao.recognize_text(file_path)
         # 设置变量
         set_var('captcha', captcha)
-        log.debug(f"Recognize captcha: image file is {file_path}, captcha is {captcha}")
+        log.debug(f"Recognize captcha: image file is %s, captcha is %s", file_path, captcha)
         # 删除文件
         #os.remove(file)
 
@@ -941,8 +941,8 @@ def main():
             src = boot.driver.page_source
             # report_to_sauce(boot.driver.session_id)
             # take_screenshot_and_logcat(boot.driver, device_logger, calling_request)
-        # log.error(f"Exception occurs: current step file is {step_file}, current activity is {activity}, current page source is {src}", exc_info = ex)
-        log.error(f"Exception occurs: current step file is {boot.step_file}, current activity is {activity}", exc_info = ex)
+        # log.error(f"Exception occurs: current step file is %s, current activity is %s, current page source is %s", step_file, activity, src, exc_info = ex)
+        log.error(f"Exception occurs: current step file is %s, current activity is %s", boot.step_file, activity, exc_info = ex)
         raise ex
     finally:
         # 关闭app
