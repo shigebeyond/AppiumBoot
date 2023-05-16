@@ -708,6 +708,11 @@ validate_by_id:
   "io.material.catalog:id/cat_demo_text": # 元素的id
     '=': 'Hello world' # 校验符号或函数: 校验的值
 ```
+可简写为:
+```yaml
+validate_by_id:
+  - "io.material.catalog:id/cat_demo_text = Hello world"
+```
 
 2. validate_by_aid:
 从当前页面中校验 accessibility_id 对应的元素的值
@@ -716,6 +721,11 @@ validate_by_aid:
   "Timer": # 元素的accessibility_id
     '>': '2022-07-06 12:00:00' # 校验符号或函数: 校验的值
 ```
+可简写为:
+```yaml
+validate_by_aid:
+  - "Timer > 2022-07-06 12:00:00"
+```
 
 3. validate_by_class:
 从当前页面中校验类名对应的元素的值
@@ -723,6 +733,11 @@ validate_by_aid:
 validate_by_class:
   "android.widget.TextView": # 元素的类名
     '=': 'Hello world' # 校验符号或函数: 校验的值
+```
+可简写为:
+```yaml
+validate_by_class:
+  - "android.widget.TextView = Hello world"
 ```
 
 4. validate_by_xpath: 
@@ -734,6 +749,12 @@ validate_by_xpath:
   "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout":
     contains: 衬衫 # 即 title 元素的值包含'衬衫'
 ```
+可简写为:
+```yaml
+validate_by_xpath:
+  - "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[1]/android.widget.LinearLayout > 0"
+  - "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.widget.FrameLayout[2]/android.widget.LinearLayout contains 衬衫"
+```
 
 5. validate_by_css: 
 从html响应中校验类名对应的元素的值
@@ -744,6 +765,12 @@ validate_by_css:
   '#goods_title':
     contains: 衬衫 # 即 title 元素的值包含'衬衫'
 ```
+可简写为:
+```yaml
+validate_by_css:
+  - '#id > 0'
+  - '#goods_title contains 衬衫'
+```
 
 6. validate_by_jsonpath: 
 从json响应中校验 多层属性 的值
@@ -753,6 +780,12 @@ validate_by_jsonpath:
      '>': 0 # 校验符号或函数: 校验的值, 即 id 元素的值>0
   '$.data.goods_title':
     contains: 衬衫 # 即 title 元素的值包含'衬衫'
+```
+可简写为:
+```yaml
+validate_by_jsonpath:
+  - '$.data.goods_id > 0'
+  - '$.data.goods_title contains 衬衫'
 ```
 
 #### 校验符号或函数
