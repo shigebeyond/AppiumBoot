@@ -9,9 +9,10 @@ from pyutilb.file import *
 import json # eval 可能会用到
 import re
 from pyutilb.log import log
+from pyutilb import BaseExtractor
 
 # 抽取器
-class Extractor(ResponseWrap):
+class Extractor(BaseExtractor, ResponseWrap):
 
     def __init__(self, driver: webdriver.Remote, res: Response = None):
         super(Extractor, self).__init__(driver, res)
@@ -38,23 +39,4 @@ class Extractor(ResponseWrap):
             return self.run_type('class', config['extract_by_class'])
 
         if 'extract_by_eval' in config:
-            return self.run_eval(config['extract_by_eval'])
-
-    # 执行单个类型的抽取
-    def run_type(self, type, fields):
-        for var, path in fields.items():
-            # 获得字段值
-            val = self._get_val_by(type, path)
-            # 抽取单个字段
-            set_var(var, val)
-            log.debug(f"Extract variable from response: %s=%s", var, val)
-
-    # 执行eval类型的抽取
-    def run_eval(self, fields):
-        for var, expr in fields.items():
-            # 获得字段值
-            val = eval(expr, globals(), get_vars()) # 丢失本地与全局变量, 如引用不了json模块
-            # 抽取单个字段
-            set_var(var, val)
-            log.debug(f"Extract variable from response: %s=%s", var, val)
-
+            return self.run_type('eval', config['extract_by_eval'])
