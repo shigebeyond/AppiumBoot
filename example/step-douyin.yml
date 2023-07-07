@@ -1,0 +1,44 @@
+# 初始化driver
+- init_driver:
+    executor: http://localhost:4723/wd/hub
+    desired_caps:
+      platformName: Android
+      platformVersion: '9'
+      deviceName: f978cc97
+#      deviceName: emulator-5554
+      appPackage: com.ss.android.ugc.aweme
+      appActivity: .main.MainActivity
+      automationName: UiAutomator2
+      noReset: true
+  sleep: 2
+- for(10):
+  - swipe_up:
+    sleep: 2
+  - tap:
+      550,550
+  - click_by: # 点赞
+      xpath: //android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ImageView
+    sleep: 2
+  - click_by: # 打开评论
+      id: com.ss.android.ugc.aweme:id/c=7
+    sleep: 2
+  - swipe_up: # 上下滑评论
+    sleep: 1
+    swipe_down:
+#  - extract_by_xpath: # 获得第一条评论文本
+#      comment: //androidx.viewpager.widget.ViewPager[@content-desc="视频"]/android.widget.FrameLayout/android.widget.FrameLayout[4]/android.widget.RelativeLayout[2]/android.widget.FrameLayout[14]/android.widget.FrameLayout
+#    print: 获得评论为 $comment
+  - click_by:
+      id: com.ss.android.ugc.aweme:id/bottom_space
+#      id: com.ss.android.ugc.aweme:id/bf4
+    sleep: 1
+  - adb_input: 666!不错哦
+    sleep: 1
+#  - keyevent: 66
+  - click_by:
+      xpath: //*[@text='发送']
+    sleep: 20
+
+
+
+

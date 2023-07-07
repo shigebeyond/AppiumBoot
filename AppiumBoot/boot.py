@@ -49,6 +49,7 @@ class Boot(YamlBoot):
         actions = {
             'init_driver': self.init_driver,
             'close_driver': self.close_driver,
+            'adb_input': self.adb_input,
             'input_by_id': self.input_by_id,
             'input_by_aid': self.input_by_aid,
             'input_by_class': self.input_by_class,
@@ -238,6 +239,9 @@ class Boot(YamlBoot):
         # 提取器
         e = Extractor(self.driver, res)
         e.run(config)
+
+    def adb_input(self, text):
+        os.system(f"adb shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'")
 
     # 根据组件id来填充输入框
     # :param input_data 表单数据, key是输入框的组件类名, value是填入的值
